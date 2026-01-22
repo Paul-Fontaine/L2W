@@ -1,10 +1,11 @@
-const prenom_field = document.getElementById("prenom");
 const nom_field = document.getElementById("nom");
+const mail_field = document.getElementById("mail");
 
 const rawUser = localStorage.getItem("current_user");
 
 if (rawUser) {
     const user = JSON.parse(rawUser);
-    prenom_field.textContent = user.prenom ?? "";
-    nom_field.textContent = user.nom ?? "";
+    const fullName = `${user.prenom} ${user.nom}`;
+    nom_field.textContent = fullName ?? "";
+    mail_field.textContent = user.email
 }
