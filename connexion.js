@@ -28,8 +28,8 @@ function getData() {
         return JSON.parse(data);
     } else {
         console.log("no users")
+        return []
     }
-    
 }
 
 function addUser(user) {
