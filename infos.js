@@ -1,39 +1,68 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // Récupérer le paramètre "collecte" dans l'URL
+
     const params = new URLSearchParams(window.location.search);
     const collecteName = params.get("collecte");
 
-    const container = document.body;
+    const container = document.querySelector(".collecte-info");
+    const form = document.getElementById("registrationForm");
 
-    if (collecteName) {
-        fetch("events.json")
-            .then(response => response.json())
-            .then(data => {
-                const collecte = data.events[collecteName];
-                if (collecte) {
-                    const html = `
-                                    <h2>${collecteName}</h2>
-                                    <p><strong>Organisateur:</strong> ${collecte.organisateur}</p>
-                                    <p><strong>Email:</strong> ${collecte.mail}</p>
-                                    <p><strong>Téléphone:</strong> ${collecte["numéro de téléphone"]}</p>
-                                    <p><strong>Option:</strong> ${collecte.option || "Aucune"}</p>
-                                    <p><strong>Thème:</strong> ${collecte.theme || "Aucun"}</p>
-                                    <p><strong>Description:</strong> ${collecte.description}</p>
-                                    <h3>Participants:</h3>
-                                    <ul>
-                                        ${Object.entries(collecte.participants).map(([name, count]) => `<li>${name}: ${count}</li>`).join("")}
-                                    </ul>
-                                `;
-                    container.innerHTML += html;
-                } else {
-                    container.innerHTML += `<p>Collecte "${collecteName}" non trouvée.</p>`;
-                }
-            })
-            .catch(error => {
-                console.error("Erreur lors du chargement du JSON:", error);
-                container.innerHTML += `<p>Erreur lors du chargement des données.</p>`;
-            });
-    } else {
-        container.innerHTML += `<p>Aucune collecte spécifiée dans l'URL.</p>`;
+    let data = null;
+
+    fetch("events.json")
+        .then(response => response.json())
+        .then(json => {
+            // Charger depuis localStorage si existe
+            data = JSON.parse(localStorage.getItem("eventsData")) || json;
+
+            if (!collecteName) {
+                container.innerHTML += "<p>Aucune collecte spécifiée.</p>";
+                return;
+            }
+
+            const collecte = data.events[collecteName];
+
+            if (!collecte) {
+                container.innerHTML += `<p>Collecte "${collecteName}" non trouvée.</p>`;
+                return;
+            }
+
+            // Affichage
+            container.innerHTML += `
+                <h2>${collecteName}</h2>
+                <p><strong>Organisateur :</strong> ${collecte.organisateur}</p>
+                <p><strong>Email :</strong> ${collecte.mail}</p>
+                <p><strong>Téléphone :</strong> ${collecte.telephone}</p>
+                <p><strong>Option :</strong> ${collecte.option || "Aucune"}</p>
+                <p><strong>Thème :</strong> ${collecte.theme || "Aucun"}</p>
+                <p><strong>Description :</strong> ${collecte.description}</p>
+                <h3>Participants :</h3>
+                <ul id="participantsList">
+                    ${Object.keys(collecte.participants).map(name => `<li>${name}</li>`).join("")}
+                </ul>
+            `;
+        });
+
+    // Gestion du formulaire
+    if (form) {
+        form.addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            if (!data || !collecteName) return;
+
+            const firstName = document.getElementById("firstName").value.trim();
+            const lastName = document.getElementById("lastName").value.trim();
+            const nombre = document.getElementById("nombre").value.trim();
+
+            if (!firstName || !lastName) return;
+
+            const participantKey = `${firstName} ${lastName}`;
+
+            data.events[collecteName].participants[participantKey] = nombre;
+
+            localStorage.setItem("eventsData", JSON.stringify(data));
+
+            alert("Inscription enregistrée !");
+            location.reload();
+        });
     }
 });
