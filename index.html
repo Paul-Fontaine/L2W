@@ -6,6 +6,8 @@
   <title>L2W - ZERO DÉCHETS EN RADE</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <link href="first.css" rel="stylesheet">
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 </head>
 <body>
 
@@ -25,7 +27,7 @@
     <div>
       <h2>ZERO DÉCHETS EN RADE</h2>
       <p>Rejoignez la communauté de bénévoles engagés pour protéger le littoral de la rade de Brest. Organisez et participez aux actions de ramassage des déchets.</p>
-      <a class="btn" href="#actions">Découvrir la communauté</a>
+      <a class="btn" href="#about">Découvrir la communauté</a>
     </div>
   </section>
 
@@ -42,6 +44,35 @@
     <div class="stat-box" data-aos="zoom-in">
       <h3 id="nb-events">0</h3>
       <p>Évènements organisés</p>
+    </div>
+  </section>
+
+  <!-- À propos de nous -->
+  <section class="about" id="about">
+    <div class="about-container">
+      <h2>À propos de nous</h2>
+      <div class="about-content">
+        <div class="about-text">
+          <p>
+            <strong>L2W (Lastez war wel)</strong> est une association environnementale locale engagée 
+            pour la protection du littoral de la rade de Brest. Notre mission est de réduire la 
+            pollution et d'offrir aux habitants un environnement plus agréable en bord de mer.
+          </p>
+          <p>
+            Nous encourageons et structurons les initiatives de ramassage des déchets sur l'ensemble 
+            du littoral, de Plouzané à Plougastel-Daoulas. Grâce à notre plateforme numérique, nous 
+            fédérons une communauté de bénévoles engagés et facilitons l'organisation de ces actions 
+            sur le territoire.
+          </p>
+          <p>
+            Rejoignez-nous pour protéger ensemble notre magnifique littoral breton !
+          </p>
+        </div>
+        <div class="about-images">
+          <img src="images/drap_breton.png" alt="Drapeau breton" class="about-img">
+          <img src="images/dechets.png" alt="Déchets et bouteilles" class="about-img">
+        </div>
+      </div>
     </div>
   </section>
 
@@ -69,12 +100,27 @@
     </div>
   </section>
 
+  <!-- Où jeter les déchets -->
+  <section class="waste-map">
+    <div class="waste-map-container">
+      <h2>Où jeter vos déchets dans la rade de Brest</h2>
+      <p class="waste-map-intro">
+        Trouvez les points de collecte et de tri près de chez vous pour jeter vos déchets 
+        de manière responsable dans Brest et ses alentours.
+      </p>
+      <div id="map"></div>
+    </div>
+  </section>
+
   <!-- Footer -->
   <footer>
     <p>© 2026 L2W. All Rights Reserved.</p>
   </footer>
 
   <link rel="stylesheet" href="first.css">
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
   <!-- Script permettant au bouton "découvrir la communautée" de défiler plus lentement-->
   <script>
@@ -104,6 +150,94 @@
 
         requestAnimationFrame(animate);
       });
+    });
+  </script>
+
+  <!-- Script pour la carte Leaflet -->
+  <script>
+    // Initialisation de la carte centrée sur Brest
+    const map = L.map('map').setView([48.3904, -4.4861], 12);
+
+    // Ajout de la couche de tuiles OpenStreetMap
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors',
+      maxZoom: 19
+    }).addTo(map);
+
+    // Points de collecte dans Brest et alentours
+    const pointsCollecte = [
+      {
+        name: 'Déchetterie de Brest - Kervallon',
+        lat: 48.3980,
+        lng: -4.4850,
+        type: 'Déchetterie',
+        address: 'Route de Kervallon, 29200 Brest'
+      },
+      {
+        name: 'Déchetterie de Brest - Kéranroux',
+        lat: 48.4200,
+        lng: -4.5000,
+        type: 'Déchetterie',
+        address: 'Rue de Kéranroux, 29200 Brest'
+      },
+      {
+        name: 'Point de tri - Centre-ville Brest',
+        lat: 48.3904,
+        lng: -4.4861,
+        type: 'Point de tri',
+        address: 'Place de la Liberté, 29200 Brest'
+      },
+      {
+        name: 'Déchetterie de Plouzané',
+        lat: 48.3833,
+        lng: -4.6167,
+        type: 'Déchetterie',
+        address: 'Plouzané, 29280'
+      },
+      {
+        name: 'Déchetterie de Plougastel-Daoulas',
+        lat: 48.3667,
+        lng: -4.3667,
+        type: 'Déchetterie',
+        address: 'Plougastel-Daoulas, 29470'
+      },
+      {
+        name: 'Point de collecte - Le Relecq-Kerhuon',
+        lat: 48.4000,
+        lng: -4.4000,
+        type: 'Point de tri',
+        address: 'Le Relecq-Kerhuon, 29480'
+      }
+    ];
+
+    // Icônes personnalisées
+    const iconDechetterie = L.icon({
+      iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
+      shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png',
+      iconSize: [25, 41],
+      iconAnchor: [12, 41],
+      popupAnchor: [1, -34],
+      shadowSize: [41, 41]
+    });
+
+    const iconPointTri = L.icon({
+      iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png',
+      shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png',
+      iconSize: [25, 41],
+      iconAnchor: [12, 41],
+      popupAnchor: [1, -34],
+      shadowSize: [41, 41]
+    });
+
+    // Ajout des marqueurs sur la carte
+    pointsCollecte.forEach(point => {
+      const icon = point.type === 'Déchetterie' ? iconDechetterie : iconPointTri;
+      const marker = L.marker([point.lat, point.lng], { icon: icon }).addTo(map);
+      marker.bindPopup(`
+        <strong>${point.name}</strong><br>
+        <em>${point.type}</em><br>
+        ${point.address}
+      `);
     });
   </script>
 </body>
