@@ -27,12 +27,6 @@ function addPoints(email, points = 1) {
     }
 }
 
-raw_user = localStorage.getItem("current_user");
-if (raw_user) {
-    current_user = JSON.parse(raw_user);
-    addPoints(current_user.email, points=100);
-}
-
 function getBadges(points) {
     if (points >= 20) return "🥇 Or";
     if (points >= 10) return "🥈 Argent";

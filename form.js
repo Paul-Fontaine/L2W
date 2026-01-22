@@ -104,7 +104,12 @@ form.addEventListener('submit', function(e) {
         successMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     });
 
-    addPoints(10);
+    // Ajouter des points à l'utilisateur actuel
+    raw_user = localStorage.getItem("current_user");
+    if (raw_user) {
+        current_user = JSON.parse(raw_user);
+        addPoints(current_user.email, points=10);
+    }
     
     return; // Empêcher l'exécution du code suivant
     

@@ -161,7 +161,12 @@ document.addEventListener("DOMContentLoaded", () => {
         // Sauvegarder dans localStorage (fusionné avec events.json)
         localStorage.setItem("eventsData", JSON.stringify(data));
 
-        addPoints(2 * nombre);
+        // Ajouter des points à l'utilisateur actuel
+        raw_user = localStorage.getItem("current_user");
+        if (raw_user) {
+            current_user = JSON.parse(raw_user);
+            addPoints(current_user.email, points=2*parseInt(nombre));
+        }
         alert("Inscription enregistrée !");
         location.reload();
     }
