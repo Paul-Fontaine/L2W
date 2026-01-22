@@ -1,138 +1,77 @@
 <!doctype html>
 <html>
-  <head>
+<head>
     <title>L2W.org</title>
+    <link rel="stylesheet" href="first.css">
     <link rel="stylesheet" href="form.css">
-  </head>
-  <body>
-      <header>
-          <h1>L2W ♻️</h1>
-          <nav>
-              <a href="index.html">Accueil</a>
-              <a href="form.html">Créer</a>
-              <a href="liste_collecte.html">Rejoindre</a>
-              <a href="#">Se connecter</a>
-          </nav>
-      </header>
+    <script src="form.js"></script>
+</head>
+<body>
+    <!-- <header>
+        <h1>L2W ♻️</h1>
+        <nav>
+            <a href="index.html">Accueil</a>
+            <a href="form.html">Créer</a>
+            <a href="liste_collecte.html">Rejoindre</a>
+            <a href="#">Se connecter</a>
+        </nav>
+    </header> -->
     <div class="container">
         <div class="header">
             <div class="icon-wrapper"></div>
-            <h1>We Value Your Feedback</h1>
-            <p>Help us improve by sharing your thoughts and suggestions</p>
+            <h1>Proposez un ramassage</h1>
+            <p>Ensemble ramassons tous les déchets</p>
         </div>
-    
-        <div class="progress-indicator">
-            <div class="progress-step active"></div>
-            <div class="progress-step"></div>
-            <div class="progress-step"></div>
-        </div>
-    
-        <form id="feedbackForm">
+
+        <form id="propositionForm">
             <div class="form-group">
-                <label for="name">Your Name</label>
-                <input type="text" id="name" name="name" placeholder="John Doe" required>
+                <label for="name">Votre nom</label>
+                <input type="text" id="name" name="name" placeholder="Jean Dujardins" required>
             </div>
     
             <div class="form-group">
-                <label for="email">Email Address</label>
-                <input type="email" id="email" name="email" placeholder="you@example.com" required>
+                <label for="email">Adresse mail</label>
+                <input type="email" id="email" name="email" placeholder="vous@exemple.com" required>
             </div>
-    
+
             <div class="form-group">
-                <label for="category">Feedback Category</label>
-                <select id="category" name="category" required>
-                    <option value="">Select a category</option>
-                    <option value="product">Product Quality</option>
-                    <option value="service">Customer Service</option>
-                    <option value="website">Website Experience</option>
-                    <option value="pricing">Pricing</option>
-                    <option value="other">Other</option>
-                </select>
+                <label for="phone">Téléphone</label>
+                <input type="tel" id="phone" name="phone" placeholder="0612345678">
             </div>
     
             <div class="form-divider"></div>
-    
-            <div class="rating-group">
-                <span class="rating-label">Overall Satisfaction (1-10)</span>
-                <div class="rating-container">
-                    <div class="rating-option">
-                        <input type="radio" id="rating1" name="satisfaction" value="1" required>
-                        <label for="rating1">1</label>
-                    </div>
-                    <div class="rating-option">
-                        <input type="radio" id="rating2" name="satisfaction" value="2">
-                        <label for="rating2">2</label>
-                    </div>
-                    <div class="rating-option">
-                        <input type="radio" id="rating3" name="satisfaction" value="3">
-                        <label for="rating3">3</label>
-                    </div>
-                    <div class="rating-option">
-                        <input type="radio" id="rating4" name="satisfaction" value="4">
-                        <label for="rating4">4</label>
-                    </div>
-                    <div class="rating-option">
-                        <input type="radio" id="rating5" name="satisfaction" value="5">
-                        <label for="rating5">5</label>
-                    </div>
-                    <div class="rating-option">
-                        <input type="radio" id="rating6" name="satisfaction" value="6">
-                        <label for="rating6">6</label>
-                    </div>
-                    <div class="rating-option">
-                        <input type="radio" id="rating7" name="satisfaction" value="7">
-                        <label for="rating7">7</label>
-                    </div>
-                    <div class="rating-option">
-                        <input type="radio" id="rating8" name="satisfaction" value="8">
-                        <label for="rating8">8</label>
-                    </div>
-                    <div class="rating-option">
-                        <input type="radio" id="rating9" name="satisfaction" value="9">
-                        <label for="rating9">9</label>
-                    </div>
-                    <div class="rating-option">
-                        <input type="radio" id="rating10" name="satisfaction" value="10">
-                        <label for="rating10">10</label>
-                    </div>
-                </div>
+
+            <div class="form-group">
+                <label for="event-name">Nom du ramassage</label>
+                <input type="text" id="event-name" name="event-name" placeholder="Ramassage de déchets" required>
             </div>
-    
-            <div class="rating-group">
-                <span class="rating-label">How likely are you to recommend us?</span>
-                <div class="star-rating">
-                    <input type="radio" id="star5" name="recommendation" value="5" required>
-                    <label for="star5">★</label>
-                    <input type="radio" id="star4" name="recommendation" value="4">
-                    <label for="star4">★</label>
-                    <input type="radio" id="star3" name="recommendation" value="3">
-                    <label for="star3">★</label>
-                    <input type="radio" id="star2" name="recommendation" value="2">
-                    <label for="star2">★</label>
-                    <input type="radio" id="star1" name="recommendation" value="1">
-                    <label for="star1">★</label>
-                </div>
+
+            <!-- todo selecteur de date -->
+            <div class="form-group">
+                <label for="event-name">Date</label>
+                <input type="text" id="event-name" name="event-name" placeholder="01/01/2026" required>
             </div>
+
+            <div class="form-group">
+                <label for="event-place">Lieu de départ</label>
+                <input type="text" id="event-place" name="event-place" placeholder="Plage de Saint-Anne" required>
+            </div>
+            <!-- todo case à cocher PMR friendly -->
     
             <div class="form-divider"></div>
     
             <div class="form-group">
-                <label for="feedback">Your Feedback</label>
-                <textarea id="feedback" name="feedback" placeholder="Tell us what you think..." required></textarea>
-            </div>
-    
-            <div class="form-group">
-                <label for="suggestions">Suggestions for Improvement</label>
-                <textarea id="suggestions" name="suggestions" placeholder="How can we do better?"></textarea>
+                <label for="description">Description</label>
+                <textarea id="description" name="description" placeholder="Donnez toutes les infos nécessaires aux futurs participants comme l'heure" required></textarea>
             </div>
     
             <button type="submit" class="submit-btn"><span>Submit Feedback</span></button>
     
             <div class="success-message" id="successMessage">
-                ✓ Thank you for your feedback! We appreciate your time and input.
+                ✓ nous avons enregistré votre proposition
             </div>
         </form>
     </div>
-  </body>
+</body>
 </html>
 
