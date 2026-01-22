@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
         <link href="first.css" rel="stylesheet">
+        <link href="liste_collecte.css" rel="stylesheet">
     </head>
     <body>
         <header>
@@ -18,32 +19,92 @@
             </nav>
         </header>
 
+        <main class="collectes-container">
+            <div id="collectesContent">
+                <p>Chargement des collectes...</p>
+            </div>
+        </main>
+
         <script>
             document.addEventListener("DOMContentLoaded", () => {
-            const container = document.body;
+                const container = document.getElementById("collectesContent");
 
-            fetch("events.json")
-            .then(response => response.json())
-            .then(data => {
-            const events = data.events;
-            const html = `
-                <h2>Liste des collectes</h2>
-                <ul class="collecte-list">
-                    ${Object.entries(events).map(([eventName, eventDetails]) => `
-                    <li>
-                        <a href="info_collecte.html?collecte=${encodeURIComponent(eventName)}">
-                            <strong>${eventName}</strong> - ${eventDetails.lieu} (Organisateur: ${eventDetails.organisateur}) - ${eventDetails.date}
-                        </a>
-                    </li>
-                    `).join("")}
-                </ul>
-            `;
-            container.innerHTML += html;
-            })
-            .catch(error => {
-            console.error("Erreur lors du chargement du JSON:", error);
-            container.innerHTML += `<p>Erreur lors du chargement des données.</p>`;
-            });
+                // Charger depuis localStorage si existe, sinon depuis le fichier JSON
+                const storedData = localStorage.getItem("eventsData");
+                let dataPromise;
+
+                if (storedData) {
+                    dataPromise = Promise.resolve(JSON.parse(storedData));
+                } else {
+                    dataPromise = fetch("events.json")
+                        .then(response => response.json());
+                }
+
+                dataPromise
+                    .then(data => {
+                        const events = data.events || {};
+
+                        if (Object.keys(events).length === 0) {
+                            container.innerHTML = `
+                                <div class="no-collectes">
+                                    <h2>Aucune collecte disponible</h2>
+                                    <p>Il n'y a pas encore d'événements de ramassage organisés.</p>
+                                    <p>Créez-en un dès maintenant !</p>
+                                </div>
+                            `;
+                            return;
+                        }
+
+                        const html = `
+                            <h2>Liste des collectes</h2>
+                            <ul class="collecte-list">
+                                ${Object.entries(events).map(([eventName, eventDetails]) => {
+                                    const lieu = eventDetails.lieu || "Lieu non spécifié";
+                                    const organisateur = eventDetails.organisateur || "Organisateur non spécifié";
+                                    const date = eventDetails.date_debut || eventDetails.date || "Date non spécifiée";
+                                    const adresse = eventDetails.adresse || "";
+                                    const participantsCount = eventDetails.participants ? Object.keys(eventDetails.participants).length : 0;
+                                    
+                                    return `
+                                    <li>
+                                        <a href="info_collecte.html?collecte=${encodeURIComponent(eventName)}" class="collecte-card">
+                                            <span class="collecte-title">${eventName}</span>
+                                            <div class="collecte-info-item">
+                                                <strong>📍 Lieu :</strong>
+                                                <span>${lieu}${adresse ? ` - ${adresse}` : ''}</span>
+                                            </div>
+                                            <div class="collecte-info-item">
+                                                <strong>👤 Organisateur :</strong>
+                                                <span>${organisateur}</span>
+                                            </div>
+                                            <div class="collecte-info-item">
+                                                <strong>📅 Date :</strong>
+                                                <span>${date}</span>
+                                            </div>
+                                            ${participantsCount > 0 ? `
+                                            <div class="collecte-info-item">
+                                                <strong>👥 Participants :</strong>
+                                                <span>${participantsCount} personne${participantsCount > 1 ? 's' : ''}</span>
+                                            </div>
+                                            ` : ''}
+                                            <span class="collecte-badge">Voir les détails →</span>
+                                        </a>
+                                    </li>
+                                    `;
+                                }).join("")}
+                            </ul>
+                        `;
+                        container.innerHTML = html;
+                    })
+                    .catch(error => {
+                        console.error("Erreur lors du chargement du JSON:", error);
+                        container.innerHTML = `
+                            <div class="no-collectes">
+                                <h2>Erreur de chargement</h2>
+                                <p>Impossible de charger les collectes. Veuillez réessayer plus tard.</p>
+                            </div>
+                        `;
+                    });
             });
         </script>
 
