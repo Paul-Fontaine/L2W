@@ -25,7 +25,7 @@
     <div>
       <h2>ZERO DÉCHETS EN RADE</h2>
       <p>Rejoignez la communauté de bénévoles engagés pour protéger le littoral de la rade de Brest. Organisez et participez aux actions de ramassage des déchets.</p>
-      <button class="btn">Découvrir la communauté</button>
+      <a class="btn" href="#actions">Découvrir la communauté</a>
     </div>
   </section>
 
@@ -75,6 +75,37 @@
   </footer>
 
   <link rel="stylesheet" href="first.css">
+
+  <!-- Script permettant au bouton "découvrir la communautée" de défiler plus lentement-->
+  <script>
+    // Scroll plus lent vers les ancres (ex: bouton "Découvrir la communauté")
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', function(e) {
+        const targetId = this.getAttribute('href');
+        const targetEl = document.querySelector(targetId);
+        if (!targetEl) return;
+        e.preventDefault();
+        const duration = 900; // durée en ms (plus grand = plus lent)
+        const start = window.pageYOffset;
+        const end = targetEl.getBoundingClientRect().top + window.pageYOffset;
+        const distance = end - start;
+        let startTime = null;
+
+        const easeInOutQuad = (t) => t < 0.5 ? 2*t*t : -1 + (4 - 2*t)*t;
+
+        const animate = (currentTime) => {
+          if (!startTime) startTime = currentTime;
+          const timeElapsed = currentTime - startTime;
+          const progress = Math.min(timeElapsed / duration, 1);
+          const ease = easeInOutQuad(progress);
+          window.scrollTo(0, start + distance * ease);
+          if (timeElapsed < duration) requestAnimationFrame(animate);
+        };
+
+        requestAnimationFrame(animate);
+      });
+    });
+  </script>
 </body>
 </html>
  
