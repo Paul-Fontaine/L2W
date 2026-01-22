@@ -1,9 +1,67 @@
-
-
-<html>
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EcoSnap - Track Plastic Impact</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="first.css" rel="stylesheet">
+  <script src="go.js"></script>
+</head>
 <body>
-    
-</body>
+  <header>
+    <h1>EcoSnap 🌱</h1>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Features</a>
+      <a href="#">Impact</a>
+      <a href="#">Leaderboard</a>
+    </nav>
+    <button class="toggle-btn" onclick="toggleDarkMode()">Dark Mode</button>
+  </header>
 
+  <!-- Hero -->
+  <section class="hero" data-aos="fade-up">
+    <div>
+      <h2>Track Plastic Packaging Impact</h2>
+      <p>Scan barcodes, track your eco-score, and join the movement for a greener planet.</p>
+      <button class="btn">Get Started</button>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="stats">
+    <div class="stat-box" data-aos="zoom-in">
+      <h3 id="plastic">0</h3>
+      <p>Plastic Saved (kg)</p>
+    </div>
+    <div class="stat-box" data-aos="zoom-in">
+      <h3 id="trees">0</h3>
+      <p>Trees Planted</p>
+    </div>
+    <div class="stat-box" data-aos="zoom-in">
+      <h3 id="coins">0</h3>
+      <p>Coins Earned</p>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="features">
+    <h2>Features</h2>
+    <div class="feature-grid">
+      <div class="feature-item" data-aos="flip-left">🌍 Global Eco Ranking</div>
+      <div class="feature-item" data-aos="flip-left">📦 Track Packaging Impact</div>
+      <div class="feature-item" data-aos="flip-left">🤝 User + Manufacturer Collaboration</div>
+      <div class="feature-item" data-aos="flip-left">💡 Suggest Eco Alternatives</div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2026 L2W. All Rights Reserved.</p>
+  </footer>
+
+  <link rel="stylesheet" href="style.css">
+</body>
 </html>
+ 

@@ -1,0 +1,35 @@
+{
+    "events": {
+        "Ramassage à Brest":{
+            "organisateur": "Bertrand",
+            "mail" : "test@gmail.com",
+            "numéro de téléphone" : "0636788273",
+            "option": "Covoiturage PMR possible",
+            "theme": "Hallowen",
+            "description": "Ramassage à Brest. Covoiturage possible pour tous, n'hesitez pas à me contacter. Et surtout venez en costume",
+            "participants": {
+                "Julie": "1",
+                "Gerard": "1",
+                "Christine": "12"
+            }
+
+        },
+
+        "Ramassage au phare du minou": {
+            "organisateur": "Camille",
+            "mail" : "test@gmail.com",
+            "numéro de téléphone" : "0636788273",
+            "option": "",
+            "theme": "",
+            "description": "Ramassage au phare du minou, habillez vous chaudement",
+            "participants": {
+                "Julie": "1",
+                "Gerard": "1",
+                "Bastien": "1"
+            }
+
+        }
+
+    }
+
+}
