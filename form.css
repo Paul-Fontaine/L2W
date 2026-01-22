@@ -17,14 +17,6 @@ body {
 }
 
 /* ============================================
-   HEADER (hérite de first.css mais on s'assure qu'il reste en haut)
-   ============================================ */
-header {
-  position: relative;
-  z-index: 100;
-}
-
-/* ============================================
    CONTAINER DU FORMULAIRE
    ============================================ */
 .container {
