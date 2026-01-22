@@ -1,12 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
     <head>
         <meta charset="UTF-8">
-        <title>Liste collectes</title>
+        <title>Liste des collectes</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+        <link href="first.css" rel="stylesheet">
     </head>
     <body>
         <header>
-            <h1>L2W ♻️</h1>
+            <h1>L2W </h1>
             <nav>
                 <a href="index.html">Accueil</a>
                 <a href="form.html">Créer</a>
@@ -14,6 +17,35 @@
                 <a href="#">Se connecter</a>
             </nav>
         </header>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+            const container = document.body;
+
+            fetch("events.json")
+            .then(response => response.json())
+            .then(data => {
+            const events = data.events;
+            const html = `
+            <h2>Liste des collectes</h2>
+            <ul>
+                ${Object.entries(events).map(([eventName, eventDetails]) => `
+                <li>
+                    <a href="info_collecte.html?collecte=${encodeURIComponent(eventName)}">
+                        <strong>${eventName}</strong> - ${eventDetails.lieu} (Organisateur: ${eventDetails.organisateur}) - ${eventDetails.date}
+                    </a>
+                </li>
+                `).join("")}
+            </ul>
+            `;
+            container.innerHTML += html;
+            })
+            .catch(error => {
+            console.error("Erreur lors du chargement du JSON:", error);
+            container.innerHTML += `<p>Erreur lors du chargement des données.</p>`;
+            });
+            });
+        </script>
 
     </body>
 </html>
