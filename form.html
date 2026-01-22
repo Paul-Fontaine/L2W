@@ -1,0 +1,129 @@
+<!doctype html>
+<html>
+  <head>
+    <title>L2W.org</title>
+    <link rel="stylesheet" href="form.css">
+  </head>
+  <body>
+    <div class="container">
+        <div class="header">
+            <div class="icon-wrapper"></div>
+            <h1>We Value Your Feedback</h1>
+            <p>Help us improve by sharing your thoughts and suggestions</p>
+        </div>
+    
+        <div class="progress-indicator">
+            <div class="progress-step active"></div>
+            <div class="progress-step"></div>
+            <div class="progress-step"></div>
+        </div>
+    
+        <form id="feedbackForm">
+            <div class="form-group">
+                <label for="name">Your Name</label>
+                <input type="text" id="name" name="name" placeholder="John Doe" required>
+            </div>
+    
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="you@example.com" required>
+            </div>
+    
+            <div class="form-group">
+                <label for="category">Feedback Category</label>
+                <select id="category" name="category" required>
+                    <option value="">Select a category</option>
+                    <option value="product">Product Quality</option>
+                    <option value="service">Customer Service</option>
+                    <option value="website">Website Experience</option>
+                    <option value="pricing">Pricing</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+    
+            <div class="form-divider"></div>
+    
+            <div class="rating-group">
+                <span class="rating-label">Overall Satisfaction (1-10)</span>
+                <div class="rating-container">
+                    <div class="rating-option">
+                        <input type="radio" id="rating1" name="satisfaction" value="1" required>
+                        <label for="rating1">1</label>
+                    </div>
+                    <div class="rating-option">
+                        <input type="radio" id="rating2" name="satisfaction" value="2">
+                        <label for="rating2">2</label>
+                    </div>
+                    <div class="rating-option">
+                        <input type="radio" id="rating3" name="satisfaction" value="3">
+                        <label for="rating3">3</label>
+                    </div>
+                    <div class="rating-option">
+                        <input type="radio" id="rating4" name="satisfaction" value="4">
+                        <label for="rating4">4</label>
+                    </div>
+                    <div class="rating-option">
+                        <input type="radio" id="rating5" name="satisfaction" value="5">
+                        <label for="rating5">5</label>
+                    </div>
+                    <div class="rating-option">
+                        <input type="radio" id="rating6" name="satisfaction" value="6">
+                        <label for="rating6">6</label>
+                    </div>
+                    <div class="rating-option">
+                        <input type="radio" id="rating7" name="satisfaction" value="7">
+                        <label for="rating7">7</label>
+                    </div>
+                    <div class="rating-option">
+                        <input type="radio" id="rating8" name="satisfaction" value="8">
+                        <label for="rating8">8</label>
+                    </div>
+                    <div class="rating-option">
+                        <input type="radio" id="rating9" name="satisfaction" value="9">
+                        <label for="rating9">9</label>
+                    </div>
+                    <div class="rating-option">
+                        <input type="radio" id="rating10" name="satisfaction" value="10">
+                        <label for="rating10">10</label>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="rating-group">
+                <span class="rating-label">How likely are you to recommend us?</span>
+                <div class="star-rating">
+                    <input type="radio" id="star5" name="recommendation" value="5" required>
+                    <label for="star5">★</label>
+                    <input type="radio" id="star4" name="recommendation" value="4">
+                    <label for="star4">★</label>
+                    <input type="radio" id="star3" name="recommendation" value="3">
+                    <label for="star3">★</label>
+                    <input type="radio" id="star2" name="recommendation" value="2">
+                    <label for="star2">★</label>
+                    <input type="radio" id="star1" name="recommendation" value="1">
+                    <label for="star1">★</label>
+                </div>
+            </div>
+    
+            <div class="form-divider"></div>
+    
+            <div class="form-group">
+                <label for="feedback">Your Feedback</label>
+                <textarea id="feedback" name="feedback" placeholder="Tell us what you think..." required></textarea>
+            </div>
+    
+            <div class="form-group">
+                <label for="suggestions">Suggestions for Improvement</label>
+                <textarea id="suggestions" name="suggestions" placeholder="How can we do better?"></textarea>
+            </div>
+    
+            <button type="submit" class="submit-btn"><span>Submit Feedback</span></button>
+    
+            <div class="success-message" id="successMessage">
+                ✓ Thank you for your feedback! We appreciate your time and input.
+            </div>
+        </form>
+    </div>
+  </body>
+</html>
+
