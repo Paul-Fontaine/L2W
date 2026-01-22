@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
         .then((jsonData) => {
             // Charger localStorage s'il existe
             let mergedData = { events: { ...jsonData.events } };
-            
+
             try {
                 const storedData = localStorage.getItem("eventsData");
                 if (storedData) {
@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
             } catch (e) {
                 console.warn("Erreur lors du chargement de localStorage, utilisation de events.json uniquement", e);
             }
-            
+
             return mergedData;
         });
 
@@ -78,22 +78,22 @@ document.addEventListener("DOMContentLoaded", () => {
             <h3>Participants :</h3>
             <ul id="participantsList">
                 ${Object.entries(collecte.participants || {}).map(([name, details]) => {
-                    // Gérer les deux formats : objet {nombre, telephone} ou string
-                    let nombre, telephone;
-                    if (typeof details === 'object' && details !== null) {
-                        nombre = details.nombre || details;
-                        telephone = details.telephone || "";
-                    } else {
-                        nombre = details;
-                        telephone = "";
-                    }
-                    return `
+            // Gérer les deux formats : objet {nombre, telephone} ou string
+            let nombre, telephone;
+            if (typeof details === 'object' && details !== null) {
+                nombre = details.nombre || details;
+                telephone = details.telephone || "";
+            } else {
+                nombre = details;
+                telephone = "";
+            }
+            return `
                     <li>
                         ${name} (${nombre} personne${parseInt(nombre) > 1 ? 's' : ''})
                         ${telephone ? `- Téléphone : ${telephone}` : ''}
                     </li>
                 `;
-                }).join("")}
+        }).join("")}
             </ul>
         `;
     }
@@ -151,7 +151,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         const participantKey = `${firstName} ${lastName}`;
-        
+
         // Créer ou mettre à jour le participant avec le format objet
         data.events[collecteName].participants[participantKey] = {
             nombre: nombre,
