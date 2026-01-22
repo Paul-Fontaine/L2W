@@ -70,7 +70,24 @@
                                     const organisateur = eventDetails.organisateur || "Organisateur non spécifié";
                                     const date = eventDetails.date_debut || "Date non spécifiée";
                                     const adresse = eventDetails.adresse || "";
-                                    const participantsCount = eventDetails.participants ? Object.keys(eventDetails.participants).length : 0;
+                                    
+                                    // Calculer le nombre total de participants (somme des nombres)
+                                    let totalParticipants = 0;
+                                    if (eventDetails.participants) {
+                                        Object.values(eventDetails.participants).forEach(participant => {
+                                            // Gérer les deux formats : objet {nombre: "1"} ou string "1"
+                                            if (typeof participant === 'object' && participant !== null) {
+                                                // Format objet avec propriété nombre
+                                                const nombre = parseInt(participant.nombre || participant.nombre_participants || "0", 10);
+                                                totalParticipants += isNaN(nombre) ? 0 : nombre;
+                                            } else {
+                                                // Format string direct
+                                                const nombre = parseInt(participant || "0", 10);
+                                                totalParticipants += isNaN(nombre) ? 0 : nombre;
+                                            }
+                                        });
+                                    }
+                                    const participantsCount = totalParticipants;
 
                                     return `
                                     <li>
