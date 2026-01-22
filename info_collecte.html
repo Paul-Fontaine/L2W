@@ -19,27 +19,34 @@
             </nav>
         </header>
 
-        <main>
-            <button id="showPopupButton" class="btn-bottom">Inscrivez-vous</button>
+        <main class="page-container">
 
-            <form id="registrationForm">
-                <h3>Inscription à l'événement</h3>
-                <label for="firstName">Prénom :</label>
-                <input type="text" id="firstName" name="firstName" required>
-                <label for="lastName">Nom :</label>
-                <input type="text" id="lastName" name="lastName" required>
-                <button type="submit">S'inscrire</button>
-            </form>
+            <!-- Infos sur la collecte qui vont être affichées avec le JS -->
+            <section class="collecte-info">
+
+            </section>
+
+            <!-- Formulaire d'inscription -->
+            <section class="inscription-box">
+                <h3>Inscription</h3>
+
+                <form id="registrationForm">
+                    <label for="firstName">Prénom</label>
+                    <input type="text" id="firstName" required>
+
+                    <label for="lastName">Nom</label>
+                    <input type="text" id="lastName" required>
+
+                    <label for="nombre">Nombre de participants</label>
+                    <input type="number" id="nombre" value="1" required>
+
+                    <button type="submit">S'inscrire</button>
+                </form>
+            </section>
+
         </main>
 
         <script src="infos.js"></script>
-        <script>
-            document.getElementById("showFormButton").addEventListener("click", () => {
-                const form = document.getElementById("registrationForm");
-                form.style.display = form.style.display === "none" ? "block" : "none";
-            });
-        </script>
-
 
 
     </body>
