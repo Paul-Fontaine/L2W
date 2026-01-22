@@ -14,11 +14,28 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
     }
 
-    // Charger les données depuis le JSON ou localStorage
-    const storedData = localStorage.getItem("eventsData");
-    const dataPromise = storedData
-        ? Promise.resolve(JSON.parse(storedData))
-        : fetch("events.json").then((response) => response.json());
+    // Charger les données : fusionner events.json avec localStorage
+    const dataPromise = fetch("events.json")
+        .then((response) => response.json())
+        .then((jsonData) => {
+            // Charger localStorage s'il existe
+            let mergedData = { events: { ...jsonData.events } };
+
+            try {
+                const storedData = localStorage.getItem("eventsData");
+                if (storedData) {
+                    const parsedStored = JSON.parse(storedData);
+                    if (parsedStored && parsedStored.events) {
+                        // Fusionner : events.json en base, localStorage en complément
+                        mergedData.events = { ...jsonData.events, ...parsedStored.events };
+                    }
+                }
+            } catch (e) {
+                console.warn("Erreur lors du chargement de localStorage, utilisation de events.json uniquement", e);
+            }
+
+            return mergedData;
+        });
 
     dataPromise
         .then((data) => {
@@ -60,7 +77,23 @@ document.addEventListener("DOMContentLoaded", () => {
             <p><strong>Description :</strong> ${collecte.description}</p>
             <h3>Participants :</h3>
             <ul id="participantsList">
-                ${Object.keys(collecte.participants).map(name => `<li>${name} (${collecte.participants[name]} personne${collecte.participants[name] > 1 ? 's' : ''})</li>`).join("")}
+                ${Object.entries(collecte.participants || {}).map(([name, details]) => {
+            // Gérer les deux formats : objet {nombre, telephone} ou string
+            let nombre, telephone;
+            if (typeof details === 'object' && details !== null) {
+                nombre = details.nombre || details;
+                telephone = details.telephone || "";
+            } else {
+                nombre = details;
+                telephone = "";
+            }
+            return `
+                    <li>
+                        ${name} (${nombre} personne${parseInt(nombre) > 1 ? 's' : ''})
+                        ${telephone ? `- Téléphone : ${telephone}` : ''}
+                    </li>
+                `;
+        }).join("")}
             </ul>
         `;
     }
@@ -99,16 +132,33 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const firstName = document.getElementById("firstName").value.trim();
         const lastName = document.getElementById("lastName").value.trim();
-        const nombre = document.getElementById("nombre").value.trim();
+        const nombre = document.getElementById("nombre").value.trim() || "1";
+        const telephone = document.getElementById("telephone").value.trim() || "";
 
         if (!firstName || !lastName) {
-            alert("Veuillez remplir tous les champs.");
+            alert("Veuillez remplir le prénom et le nom.");
             return;
         }
 
-        const participantKey = `${firstName} ${lastName}`;
-        data.events[collecteName].participants[participantKey] = nombre;
+        // S'assurer que la collecte existe et a un objet participants
+        if (!data.events[collecteName]) {
+            alert("Erreur : collecte introuvable.");
+            return;
+        }
 
+        if (!data.events[collecteName].participants) {
+            data.events[collecteName].participants = {};
+        }
+
+        const participantKey = `${firstName} ${lastName}`;
+
+        // Créer ou mettre à jour le participant avec le format objet
+        data.events[collecteName].participants[participantKey] = {
+            nombre: nombre,
+            telephone: telephone
+        };
+
+        // Sauvegarder dans localStorage (fusionné avec events.json)
         localStorage.setItem("eventsData", JSON.stringify(data));
 
         alert("Inscription enregistrée !");
