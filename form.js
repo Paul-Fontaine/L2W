@@ -1,3 +1,20 @@
+const dbName = "eventsData";
+
+function saveData(data) {
+    localStorage.setItem(dbName, JSON.stringify(data));
+}
+
+function getData() {
+    const data = localStorage.getItem(dbName);
+    return data ? JSON.parse(data) : []; // Return empty array if no data exists
+}
+
+function addEvent(event) {
+    const events = getData();
+    events.push(event);
+    saveData(events);
+}
+
 const form = document.getElementById('propositionForm');
 const successMessage = document.getElementById('successMessage');
 
@@ -19,15 +36,7 @@ form.addEventListener('submit', function(e) {
         return;
     }
     
-    // Lire les données existantes
-    let data = { events: {} };
-    const existingData = localStorage.getItem('eventsData');
-    if (existingData) {
-        data = JSON.parse(existingData);
-    }
-    
-    // Créer le nouvel événement
-    data.events[eventTitle] = {
+    new_event = {
         "organisateur": organisateur,
         "mail" : mail,
         "telephone" : telephone,
@@ -40,11 +49,10 @@ form.addEventListener('submit', function(e) {
         "participants": {}
     };
     
-    // Sauvegarder dans localStorage
-    localStorage.setItem('eventsData', JSON.stringify(data));
+    addEvent(new_event);
     
     console.log(`Événement "${eventTitle}" ajouté avec succès !`);
-    console.log('Données complètes :', data);
+    console.log(new_event);
     
     // Afficher le message de succès
     successMessage.style.display = 'block';
