@@ -103,6 +103,8 @@ form.addEventListener('submit', function(e) {
         
         successMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     });
+
+    addPoints(10);
     
     return; // Empêcher l'exécution du code suivant
     
