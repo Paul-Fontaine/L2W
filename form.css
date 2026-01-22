@@ -137,6 +137,7 @@ label {
 input[type="text"],
 input[type="email"],
 input[type="tel"],
+input[type="date"],
 textarea {
     width: 100%;
     padding: clamp(12px, 2.5vw, 14px) clamp(14px, 3vw, 18px);
@@ -151,14 +152,16 @@ textarea {
 
 input[type="text"]:hover,
 input[type="email"]:hover,
-input[type="tel"],
+input[type="tel"]:hover,
+input[type="date"]:hover,
 textarea:hover {
     border-color: #cbd5e1;
 }
 
 input[type="text"]:focus,
 input[type="email"]:focus,
-input[type="tel"],
+input[type="tel"]:focus,
+input[type="date"]:focus,
 textarea:focus {
     outline: none;
     border-color: #0ea5e9;
@@ -171,6 +174,71 @@ textarea {
     min-height: clamp(100px, 20vw, 130px);
     line-height: 1.6;
 }
+
+.checkbox {
+    display: flex;
+    align-items: center;
+    gap: clamp(10px, 2vw, 12px);
+    cursor: pointer;
+    color: #1e293b;
+    font-weight: 600;
+    font-size: clamp(14px, 2.5vw, 15px);
+    letter-spacing: -0.2px;
+    user-select: none;
+  }
+  
+  /* Hide native checkbox */
+  .checkbox input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+  
+  /* Checkbox box */
+  .checkmark {
+    width: clamp(20px, 3vw, 22px);
+    height: clamp(20px, 3vw, 22px);
+    border: 2px solid #e2e8f0;
+    border-radius: clamp(6px, 1.5vw, 8px);
+    background: white;
+    display: grid;
+    place-content: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  /* Hover */
+  .checkbox:hover .checkmark {
+    border-color: #cbd5e1;
+  }
+  
+  /* Checkmark */
+  .checkmark::after {
+    content: "";
+    width: 6px;
+    height: 11px;
+    border-right: 2.5px solid white;
+    border-bottom: 2.5px solid white;
+    transform: rotate(45deg) scale(0);
+    transform-origin: center;
+    transition: transform 0.18s ease;
+  }
+  
+  /* Checked state */
+  .checkbox input:checked + .checkmark {
+    background: #0ea5e9;
+    border-color: #0ea5e9;
+  }
+  
+  .checkbox input:checked + .checkmark::after {
+    transform: rotate(45deg) scale(1);
+  }
+  
+  /* Focus – same as text inputs */
+  .checkbox input:focus-visible + .checkmark {
+    box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.1);
+    transform: translateY(-1px);
+  }
+  
 
 .submit-btn {
     width: 100%;

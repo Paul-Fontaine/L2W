@@ -46,18 +46,21 @@
                 <input type="text" id="event-name" name="event-name" placeholder="Ramassage de déchets" required>
             </div>
 
-            <!-- todo selecteur de date -->
             <div class="form-group">
-                <label for="event-name">Date</label>
-                <input type="text" id="event-name" name="event-name" placeholder="01/01/2026" required>
+                <label for="date">Date:</label>
+                <input type="date" id="date" name="date" required>
             </div>
 
             <div class="form-group">
                 <label for="event-place">Lieu de départ</label>
                 <input type="text" id="event-place" name="event-place" placeholder="Plage de Saint-Anne" required>
             </div>
-            <!-- todo case à cocher PMR friendly -->
-    
+
+            <label class="checkbox" for="PMR">Adapté aux PMR
+                <input type="checkbox" id="PMR" name="PMR">
+                <span class="checkmark"></span>
+            </label>
+
             <div class="form-divider"></div>
     
             <div class="form-group">
