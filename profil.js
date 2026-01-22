@@ -4,7 +4,7 @@ const points_field = document.getElementById("points");
 
 const rawUser = localStorage.getItem("current_user");
 
-if (rawUser) {
+if (rawUser && nom_field) {
     const user = JSON.parse(rawUser);
     const fullName = `${user.prenom} ${user.nom}`;
     nom_field.textContent = fullName ?? "";
