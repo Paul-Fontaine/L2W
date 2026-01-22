@@ -1,171 +1,120 @@
-
-
+/* ============================================
+   RESET & BASE
+   ============================================ */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    background: linear-gradient(135deg, rgba(27,94,32) 0%, #2e7d32 50%, #c8e6c9 100%);
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    position: relative;
-    overflow-x: hidden;
-}
-
-body::before,
-body::after {
-    content: '';
-    position: fixed;
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 0;
-}
-
-body::before {
-    width: min(600px, 80vw);
-    height: min(600px, 80vw);
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.12) 0%, transparent 70%);
-    top: -15%;
-    right: -10%;
-    animation: pulse 8s ease-in-out infinite;
-}
-
-body::after {
-    width: min(400px, 60vw);
-    height: min(400px, 60vw);
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
-    bottom: -10%;
-    left: -8%;
-    animation: pulse 6s ease-in-out infinite reverse;
-}
-
-@keyframes pulse {
-    0%, 100% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.1); opacity: 0.8; }
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, rgba(46,125,50,0.7), rgba(27,94,32,0.8));
+  min-height: 100vh;
+  padding: 0;
+  position: relative;
+  overflow-x: hidden;
 }
 
 /* ============================================
-   HEADER & NAVIGATION
+   HEADER (hérite de first.css mais on s'assure qu'il reste en haut)
    ============================================ */
 header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px 50px;
-  background: #2e7d32;
-  color: #fff;
+  position: relative;
+  z-index: 100;
 }
 
-header h1 {
-  font-size: 24px;
-  font-weight: 700;
-}
-
-nav a {
-  margin: 0 15px;
-  text-decoration: none;
-  color: #fff;
-  font-weight: 600;
-}
-
-nav a:hover {
-  color: #c8e6c9;
-}
-
-/* 
-CSS du formulaire
-*/
-
+/* ============================================
+   CONTAINER DU FORMULAIRE
+   ============================================ */
 .container {
-    background: rgba(255, 255, 255, 0.98);
-    backdrop-filter: blur(20px);
-    border-radius: clamp(16px, 3vw, 24px);
-    box-shadow: 0 25px 70px rgba(0, 0, 0, 0.15), 
-                0 0 0 1px rgba(255, 255, 255, 0.5),
-                inset 0 1px 0 rgba(255, 255, 255, 0.9);
-    max-width: 750px;
-    width: 100%;
-    padding: clamp(25px, 5vw, 50px);
-    position: relative;
-    z-index: 1;
-    animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.15);
+  max-width: 750px;
+  width: 100%;
+  padding: 40px 50px;
+  margin: 40px auto;
+  position: relative;
+  z-index: 1;
+  animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @keyframes slideUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
+/* ============================================
+   EN-TÊTE DU FORMULAIRE
+   ============================================ */
 .header {
-    text-align: center;
-    margin-bottom: clamp(30px, 5vw, 45px);
-    position: relative;
+  text-align: center;
+  margin-bottom: 40px;
 }
 
 .icon-wrapper {
-    width: clamp(70px, 15vw, 90px);
-    height: clamp(70px, 15vw, 90px);
-    margin: 0 auto clamp(15px, 3vw, 20px);
-    background: linear-gradient(135deg, #2e7d32 0%, #c8e6c9 100%);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 10px 30px rgba(14, 165, 233, 0.3);
-    animation: float 3s ease-in-out infinite;
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 20px;
+  background: linear-gradient(135deg, #2e7d32 0%, #c8e6c9 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 30px rgba(46, 125, 50, 0.3);
+  animation: float 3s ease-in-out infinite;
 }
 
 .icon-wrapper::before {
-    content: '💬';
-    font-size: clamp(32px, 7vw, 44px);
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+  content: '♻️';
+  font-size: 40px;
 }
 
 @keyframes float {
-    0%, 100% { transform: translateY(0px) rotate(0deg); }
-    50% { transform: translateY(-12px) rotate(5deg); }
+  0%, 100% { 
+    transform: translateY(0px); 
+  }
+  50% { 
+    transform: translateY(-12px); 
+  }
 }
 
 .header h1 {
-    color: #0f172a;
-    font-size: clamp(24px, 5vw, 36px);
-    margin-bottom: clamp(8px, 2vw, 12px);
-    font-weight: 700;
-    letter-spacing: -0.5px;
-    line-height: 1.2;
+  color: #0f172a;
+  font-size: 32px;
+  margin-bottom: 10px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
 }
 
 .header p {
-    color: #64748b;
-    font-size: clamp(14px, 3vw, 17px);
-    font-weight: 400;
-    line-height: 1.5;
-    padding: 0 10px;
+  color: #64748b;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
 }
 
+/* ============================================
+   CHAMPS DU FORMULAIRE
+   ============================================ */
 .form-group {
-    margin-bottom: clamp(20px, 4vw, 28px);
+  margin-bottom: 24px;
 }
 
 label {
-    display: block;
-    color: #1e293b;
-    font-weight: 600;
-    margin-bottom: clamp(8px, 2vw, 10px);
-    font-size: clamp(14px, 2.5vw, 15px);
-    letter-spacing: -0.2px;
+  display: block;
+  color: #1e293b;
+  font-weight: 600;
+  margin-bottom: 8px;
+  font-size: 15px;
 }
 
 input[type="text"],
@@ -173,15 +122,15 @@ input[type="email"],
 input[type="tel"],
 input[type="date"],
 textarea {
-    width: 100%;
-    padding: clamp(12px, 2.5vw, 14px) clamp(14px, 3vw, 18px);
-    border: 2px solid #e2e8f0;
-    border-radius: clamp(10px, 2vw, 12px);
-    font-size: clamp(14px, 2.5vw, 15px);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    font-family: inherit;
-    background: white;
-    color: #0f172a;
+  width: 100%;
+  padding: 14px 18px;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  font-size: 15px;
+  transition: all 0.3s ease;
+  font-family: inherit;
+  background: white;
+  color: #0f172a;
 }
 
 input[type="text"]:hover,
@@ -189,7 +138,7 @@ input[type="email"]:hover,
 input[type="tel"]:hover,
 input[type="date"]:hover,
 textarea:hover {
-    border-color: #cbd5e1;
+  border-color: #cbd5e1;
 }
 
 input[type="text"]:focus,
@@ -197,243 +146,258 @@ input[type="email"]:focus,
 input[type="tel"]:focus,
 input[type="date"]:focus,
 textarea:focus {
-    outline: none;
-    border-color: #2e7d32;
-    box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.1);
-    transform: translateY(-1px);
+  outline: none;
+  border-color: #2e7d32;
+  box-shadow: 0 0 0 4px rgba(46, 125, 50, 0.1);
 }
 
 textarea {
-    resize: vertical;
-    min-height: clamp(100px, 20vw, 130px);
-    line-height: 1.6;
+  resize: vertical;
+  min-height: 120px;
+  line-height: 1.6;
 }
 
+/* ============================================
+   CHECKBOX PMR
+   ============================================ */
 .checkbox {
-    display: flex;
-    align-items: center;
-    gap: clamp(10px, 2vw, 12px);
-    cursor: pointer;
-    color: #1e293b;
-    font-weight: 600;
-    font-size: clamp(14px, 2.5vw, 15px);
-    letter-spacing: -0.2px;
-    user-select: none;
-  }
-  
-  /* Hide native checkbox */
-  .checkbox input {
-    position: absolute;
-    opacity: 0;
-    pointer-events: none;
-  }
-  
-  /* Checkbox box */
-  .checkmark {
-    width: clamp(20px, 3vw, 22px);
-    height: clamp(20px, 3vw, 22px);
-    border: 2px solid #e2e8f0;
-    border-radius: clamp(6px, 1.5vw, 8px);
-    background: white;
-    display: grid;
-    place-content: center;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  
-  /* Hover */
-  .checkbox:hover .checkmark {
-    border-color: #cbd5e1;
-  }
-  
-  /* Checkmark */
-  .checkmark::after {
-    content: "";
-    width: 6px;
-    height: 11px;
-    border-right: 2.5px solid white;
-    border-bottom: 2.5px solid white;
-    transform: rotate(45deg) scale(0);
-    transform-origin: center;
-    transition: transform 0.18s ease;
-  }
-  
-  /* Checked state */
-  .checkbox input:checked + .checkmark {
-    background: #0ea5e9;
-    border-color: #0ea5e9;
-  }
-  
-  .checkbox input:checked + .checkmark::after {
-    transform: rotate(45deg) scale(1);
-  }
-  
-  /* Focus – same as text inputs */
-  .checkbox input:focus-visible + .checkmark {
-    box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.1);
-    transform: translateY(-1px);
-  }
-  
-
-.submit-btn {
-    width: 100%;
-    padding: clamp(14px, 3vw, 17px);
-    background: linear-gradient(135deg, #2e7d32 0%, #c8e6c9 100%);
-    color: white;
-    border: none;
-    border-radius: clamp(10px, 2vw, 12px);
-    font-size: clamp(15px, 3vw, 17px);
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    margin-top: clamp(10px, 2vw, 15px);
-    box-shadow: 0 8px 24px rgba(27,94,32,0.3);
-    letter-spacing: 0.3px;
-    position: relative;
-    overflow: hidden;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  color: #1e293b;
+  font-weight: 600;
+  font-size: 15px;
+  user-select: none;
+  margin-bottom: 24px;
 }
 
-.submit-btn::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.3);
-    transform: translate(-50%, -50%);
-    transition: width 0.6s, height 0.6s;
+.checkbox input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
 }
 
-.submit-btn:hover::before {
-    width: 300px;
-    height: 300px;
+.checkmark {
+  width: 22px;
+  height: 22px;
+  border: 2px solid #e2e8f0;
+  border-radius: 6px;
+  background: white;
+  display: grid;
+  place-content: center;
+  transition: all 0.3s ease;
 }
 
-.submit-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 16px 36px rgba(27,94,32,0.4);
+.checkbox:hover .checkmark {
+  border-color: #cbd5e1;
 }
 
-.submit-btn:active {
-    transform: translateY(-1px);
+.checkmark::after {
+  content: "";
+  width: 6px;
+  height: 11px;
+  border-right: 2.5px solid white;
+  border-bottom: 2.5px solid white;
+  transform: rotate(45deg) scale(0);
+  transform-origin: center;
+  transition: transform 0.18s ease;
 }
 
-.success-message {
-    display: none;
-    background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
-    color: #065f46;
-    padding: clamp(14px, 3vw, 18px) clamp(18px, 4vw, 24px);
-    border-radius: clamp(10px, 2vw, 12px);
-    margin-top: clamp(18px, 4vw, 24px);
-    text-align: center;
-    border: 2px solid #6ee7b7;
-    font-weight: 600;
-    font-size: clamp(14px, 2.5vw, 16px);
-    box-shadow: 0 4px 16px rgba(16, 185, 129, 0.2);
-    animation: slideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+.checkbox input:checked + .checkmark {
+  background: #2e7d32;
+  border-color: #2e7d32;
 }
 
-@keyframes slideIn {
-    from {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.checkbox input:checked + .checkmark::after {
+  transform: rotate(45deg) scale(1);
 }
 
+.checkbox input:focus-visible + .checkmark {
+  box-shadow: 0 0 0 4px rgba(46, 125, 50, 0.1);
+}
+
+/* ============================================
+   SÉPARATEUR
+   ============================================ */
 .form-divider {
-    height: 1px;
-    background: linear-gradient(to right, transparent, #e2e8f0 20%, #e2e8f0 80%, transparent);
-    margin: clamp(25px, 5vw, 35px) 0;
-    position: relative;
+  height: 1px;
+  background: linear-gradient(to right, transparent, #e2e8f0 20%, #e2e8f0 80%, transparent);
+  margin: 30px 0;
+  position: relative;
 }
 
 .form-divider::after {
-    content: '✦';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: white;
-    color: #2e7d32;
-    padding: 0 clamp(8px, 2vw, 12px);
-    font-size: clamp(12px, 2.5vw, 14px);
+  content: '✦';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  color: #2e7d32;
+  padding: 0 12px;
+  font-size: 14px;
 }
 
-/* Touch-friendly improvements for mobile */
-@media (hover: none) and (pointer: coarse) {
-    .rating-option label,
-    .star-rating label,
-    .submit-btn {
-        -webkit-tap-highlight-color: transparent;
-    }
+/* ============================================
+   BOUTON DE SOUMISSION
+   ============================================ */
+.submit-btn {
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(135deg, #2e7d32 0%, #c8e6c9 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 17px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 15px;
+  box-shadow: 0 8px 24px rgba(46, 125, 50, 0.3);
+  letter-spacing: 0.3px;
+  position: relative;
+  overflow: hidden;
 }
 
-/* Tablet adjustments */
-@media (min-width: 768px) and (max-width: 1024px) {
-    .container {
-        max-width: 650px;
-    }
-    
-    .rating-container {
-        grid-template-columns: repeat(5, 1fr);
-    }
+.submit-btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
 }
 
-/* Mobile optimizations */
-@media (max-width: 767px) {
-    body {
-        padding: 15px;
-    }
-
-    .container {
-        padding: clamp(20px, 6vw, 30px);
-    }
-
-    .rating-container {
-        grid-template-columns: repeat(5, 1fr);
-    }
-
-    .star-rating {
-        gap: 8px;
-    }
-
-    .form-group {
-        margin-bottom: 22px;
-    }
-
-    .rating-group {
-        padding: 16px;
-    }
+.submit-btn:hover::before {
+  width: 300px;
+  height: 300px;
 }
 
-/* Very small screens */
-@media (max-width: 380px) {
-    .rating-container {
-        grid-template-columns: repeat(5, 1fr);
-        gap: 6px;
-    }
-
-    .rating-option label {
-        font-size: 13px;
-        min-height: 42px;
-    }
-
-    .star-rating label {
-        font-size: 28px;
-    }
+.submit-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 36px rgba(46, 125, 50, 0.4);
 }
 
-/* Large screens */
-@media (min-width: 1200px) {
-    body {
-        padding: 60px 20px;
-    }
+.submit-btn:active {
+  transform: translateY(-1px);
 }
 
+.submit-btn span {
+  position: relative;
+  z-index: 1;
+}
 
+/* ============================================
+   MESSAGE DE SUCCÈS
+   ============================================ */
+.success-message {
+  display: none;
+  background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+  color: #065f46;
+  padding: 18px 24px;
+  border-radius: 12px;
+  margin-top: 24px;
+  text-align: center;
+  border: 2px solid #6ee7b7;
+  font-weight: 600;
+  font-size: 16px;
+  box-shadow: 0 4px 16px rgba(16, 185, 129, 0.2);
+  animation: slideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
 
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+/* Tablettes */
+@media (max-width: 1024px) {
+  .container {
+    max-width: 650px;
+    padding: 35px 40px;
+  }
+}
+
+/* Mobiles */
+@media (max-width: 768px) {
+  body {
+    padding: 0;
+  }
+
+  .container {
+    padding: 30px 25px;
+    margin: 20px auto;
+    border-radius: 16px;
+  }
+
+  .header h1 {
+    font-size: 28px;
+  }
+
+  .header p {
+    font-size: 15px;
+  }
+
+  .icon-wrapper {
+    width: 70px;
+    height: 70px;
+  }
+
+  .icon-wrapper::before {
+    font-size: 35px;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="date"],
+  textarea {
+    padding: 12px 16px;
+    font-size: 14px;
+  }
+}
+
+/* Petits mobiles */
+@media (max-width: 480px) {
+  .container {
+    padding: 25px 20px;
+    margin: 15px auto;
+  }
+
+  .header h1 {
+    font-size: 24px;
+  }
+
+  .header p {
+    font-size: 14px;
+  }
+
+  .icon-wrapper {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 15px;
+  }
+
+  .icon-wrapper::before {
+    font-size: 30px;
+  }
+}
