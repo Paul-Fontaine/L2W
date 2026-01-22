@@ -1,12 +1,35 @@
 const dbName = "users";
 
+const data = localStorage.getItem(dbName);
+if (!data) {
+    default_uers = [{
+        "prenom": "Bertrand",
+        "nom": "Usclat",
+        "email": "test@gmail.com",
+        "points": 0
+    },
+    {
+        "prenom": "Camille",
+        "nom": "Cottin",
+        "email": "test@gmail.com",
+        "points": 0
+    }]
+    localStorage.setItem(dbName, default_uers)
+}
+
+
 function saveData(data) {
     localStorage.setItem(dbName, JSON.stringify(data));
 }
 
 function getData() {
     const data = localStorage.getItem(dbName);
-    return data ? JSON.parse(data) : [];
+    if (data) {
+        return JSON.parse(data);
+    } else {
+        console.log("no users")
+    }
+    
 }
 
 function addUser(user) {
@@ -44,7 +67,8 @@ signupForm.addEventListener('submit', function(e) {
     const new_user = {
         "prenom": prenom,
         "nom": nom,
-        "email": email
+        "email": email,
+        "points": 0
     }
 
     addUser(new_user)
@@ -60,8 +84,14 @@ signinForm.addEventListener('submit', function(e) {
 
     users_list = getData()
     user = users_list.filter(user => user.email === email)[0]
+    if (user) {
+       localStorage.setItem("current_user", JSON.stringify(user))
     
-    localStorage.setItem("current_user", JSON.stringify(user))
-    
-    
+        setTimeout(function() {
+            window.location.href = 'index.html';
+        }, 800); 
+    } else {
+        alert("cette adresse mail n'est pas enregistrée")
+    }
+        
 })
