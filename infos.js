@@ -32,6 +32,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 <p><strong>Organisateur :</strong> ${collecte.organisateur}</p>
                 <p><strong>Email :</strong> ${collecte.mail}</p>
                 <p><strong>Téléphone :</strong> ${collecte.telephone}</p>
+                <p><strong>Adresse de rencontre :</strong> ${collecte.lieu}</p>
+                <p><strong>Date :</strong> ${collecte.date_debut}</p>
                 <p><strong>Option :</strong> ${collecte.option || "Aucune"}</p>
                 <p><strong>Thème :</strong> ${collecte.theme || "Aucun"}</p>
                 <p><strong>Description :</strong> ${collecte.description}</p>

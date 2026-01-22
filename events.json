@@ -3,9 +3,12 @@
         "Ramassage à Brest":{
             "organisateur": "Bertrand",
             "mail" : "test@gmail.com",
-            "numéro de téléphone" : "0636788273",
+            "telephone" : "0636788273",
             "option": "Covoiturage PMR possible",
             "theme": "Hallowen",
+            "lieu": "Ville de Brest",
+            "date_debut": "31/10/2024",
+            "adresse": "Place de la Liberté, 29200 Brest",
             "description": "Ramassage à Brest. Covoiturage possible pour tous, n'hesitez pas à me contacter. Et surtout venez en costume",
             "participants": {
                 "Julie": "1",
@@ -18,9 +21,12 @@
         "Ramassage au phare du minou": {
             "organisateur": "Camille",
             "mail" : "test@gmail.com",
-            "numéro de téléphone" : "0636788273",
+            "telephone" : "0636788273",
             "option": "",
             "theme": "",
+            "lieu": "Phare du Minou",
+            "date_debut": "15/11/2024",
+            "adresse": "Plouzané, 29280",
             "description": "Ramassage au phare du minou, habillez vous chaudement",
             "participants": {
                 "Julie": "1",

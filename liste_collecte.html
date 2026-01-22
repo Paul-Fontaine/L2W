@@ -27,16 +27,16 @@
             .then(data => {
             const events = data.events;
             const html = `
-            <h2>Liste des collectes</h2>
-            <ul>
-                ${Object.entries(events).map(([eventName, eventDetails]) => `
-                <li>
-                    <a href="info_collecte.html?collecte=${encodeURIComponent(eventName)}">
-                        <strong>${eventName}</strong> - ${eventDetails.lieu} (Organisateur: ${eventDetails.organisateur}) - ${eventDetails.date}
-                    </a>
-                </li>
-                `).join("")}
-            </ul>
+                <h2>Liste des collectes</h2>
+                <ul class="collecte-list">
+                    ${Object.entries(events).map(([eventName, eventDetails]) => `
+                    <li>
+                        <a href="info_collecte.html?collecte=${encodeURIComponent(eventName)}">
+                            <strong>${eventName}</strong> - ${eventDetails.lieu} (Organisateur: ${eventDetails.organisateur}) - ${eventDetails.date}
+                        </a>
+                    </li>
+                    `).join("")}
+                </ul>
             `;
             container.innerHTML += html;
             })
