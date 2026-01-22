@@ -1,51 +1,62 @@
 const form = document.getElementById('propositionForm');
 const successMessage = document.getElementById('successMessage');
 
-form.addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    successMessage.style.display = 'block';
-    form.reset();
-    
-    setTimeout(function() {
-        successMessage.style.display = 'none';
-    }, 5000);
-
-    /*
-
-    // Read JSON
-    const fs = require('fs');
-    const fichierJson = fs.readFileSync('events.json', 'utf8');
-
-    // Parse JSON dile
-    let data = JSON.parse(fichierJson);
-
-    // Data recovery
-    const eventTitle = nameInput.value;
-
-    const newEvent = {
-        "lieu": lieuInput.value,
-        "date": dateInput.value,
-        "organisateur": nameInput.value,
-        "mail": emailInput.value,
-        "numéro de téléphone": phoneInput.value,
-        "option": optionInput.value, 
-        "theme": themeInput.value, 
-        "description": descriptionInput.value,
-        "participants": "" // empty at first
-    };
-
-    // add newEvent
-    data.events[eventTitle] = newEvent;
-
-    // Write new data
-    const contenuFichier = JSON.stringify(data, null, 2);
-    fs.writeFileSync('events.json', contenuFichier, 'utf8');
-
-    // Verif 
-    console.log(`Événement "${eventTitle}" ajouté avec succès !`);
-    */
-
-    
-    successMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-});
+if (form) {
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Récupération des données du formulaire
+        const eventTitle = document.getElementById('event-name').value.trim();
+        const lieu = document.getElementById('event-place').value.trim();
+        const date = document.getElementById('date').value.trim();
+        const organisateur = document.getElementById('name').value.trim();
+        const mail = document.getElementById('email').value.trim();
+        const telephone = document.getElementById('phone').value.trim();
+        const adaptePMR = document.getElementById('PMR').checked;
+        const description = document.getElementById('description').value.trim();
+        
+        if (!eventTitle || !lieu || !date || !organisateur || !mail || !description) {
+            alert('Veuillez remplir tous les champs obligatoires');
+            return;
+        }
+        
+        // Lire les données existantes
+        let data = { events: {} };
+        const existingData = localStorage.getItem('eventsData');
+        if (existingData) {
+            data = JSON.parse(existingData);
+        }
+        
+        // Créer le nouvel événement
+        data.events[eventTitle] = {
+            "lieu": lieu,
+            "date": date,
+            "organisateur": organisateur,
+            "mail": mail,
+            "numéro de téléphone": telephone,
+            "adapté PMR": adaptePMR,
+            "description": description,
+            "participants": {}
+        };
+        
+        // Sauvegarder dans localStorage
+        localStorage.setItem('eventsData', JSON.stringify(data));
+        
+        console.log(`Événement "${eventTitle}" ajouté avec succès !`);
+        console.log('Données complètes :', data);
+        
+        // Afficher le message de succès
+        successMessage.style.display = 'block';
+        
+        // Réinitialiser le formulaire
+        form.reset();
+        
+        // Cacher le message et rediriger après 2 secondes
+        setTimeout(function() {
+            successMessage.style.display = 'none';
+            window.location.href = 'liste_collecte.html';
+        }, 2000);
+        
+        successMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+}
