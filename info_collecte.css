@@ -1,0 +1,233 @@
+/* ============================================
+   STYLES POUR LA PAGE INFO COLLECTE
+   ============================================ */
+
+/* ============================================
+   CONTAINER PRINCIPAL
+   ============================================ */
+.page-container {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  padding: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ============================================
+   SECTION INFORMATIONS COLLECTE
+   ============================================ */
+.collecte-info {
+  width: 100%;
+}
+
+.collecte-info h2 {
+  color: #2e7d32;
+  margin-bottom: 20px;
+  font-size: 28px;
+}
+
+.collecte-info h3 {
+  color: #2e7d32;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-size: 20px;
+}
+
+.collecte-info p {
+  margin-bottom: 10px;
+  line-height: 1.6;
+}
+
+.collecte-info ul {
+  list-style: none;
+  padding: 0;
+}
+
+.collecte-info li {
+  padding: 8px;
+  margin: 5px 0;
+  background: #e8f5e9;
+  border-radius: 5px;
+}
+
+/* ============================================
+   FORMULAIRE D'INSCRIPTION
+   ============================================ */
+.inscription-box {
+  border: 2px solid #2ecc71;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #f9fff9;
+}
+
+.inscription-box h3 {
+  color: #2e7d32;
+  margin-bottom: 15px;
+  font-size: 20px;
+}
+
+.inscription-box form {
+  display: flex;
+  flex-direction: column;
+}
+
+.inscription-box label {
+  margin-top: 10px;
+  font-weight: 600;
+  color: #333;
+}
+
+.inscription-box input {
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.inscription-box button {
+  margin-top: 15px;
+  padding: 10px;
+  background-color: #2ecc71;
+  border: none;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  font-weight: 600;
+  transition: background-color 0.3s;
+}
+
+.inscription-box button:hover {
+  background-color: #27ae60;
+}
+
+/* ============================================
+   FORMULAIRE DE DÉSINSCRIPTION
+   ============================================ */
+.desinscription-box {
+  border: 2px solid #e74c3c;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #fff5f5;
+}
+
+.desinscription-box h3 {
+  color: #c0392b;
+  margin-bottom: 15px;
+  font-size: 20px;
+}
+
+.desinscription-box form {
+  display: flex;
+  flex-direction: column;
+}
+
+.desinscription-box label {
+  margin-top: 10px;
+  font-weight: 600;
+  color: #333;
+}
+
+.desinscription-box input {
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.desinscription-box button {
+  margin-top: 15px;
+  padding: 10px;
+  background-color: #e74c3c;
+  border: none;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  font-weight: 600;
+  transition: background-color 0.3s;
+}
+
+.desinscription-box button:hover {
+  background-color: #c0392b;
+}
+
+/* ============================================
+   BOUTON FIXE (si utilisé)
+   ============================================ */
+.btn-bottom {
+  position: fixed;
+  bottom: 100px;
+  left: 50px;
+  background: #43a047;
+  color: white;
+  padding: 12px 25px;
+  border-radius: 30px;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-bottom:hover {
+  background: white;
+  color: #43a047;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+/* Tablettes */
+@media (max-width: 1024px) {
+  .page-container {
+    padding: 30px;
+  }
+}
+
+/* Mobiles */
+@media (max-width: 768px) {
+  .page-container {
+    padding: 20px;
+    gap: 20px;
+  }
+
+  .collecte-info h2 {
+    font-size: 24px;
+  }
+
+  .collecte-info h3 {
+    font-size: 18px;
+  }
+
+  .inscription-box,
+  .desinscription-box {
+    padding: 15px;
+  }
+
+  .inscription-box h3,
+  .desinscription-box h3 {
+    font-size: 18px;
+  }
+}
+
+/* Petits mobiles */
+@media (max-width: 480px) {
+  .page-container {
+    padding: 15px;
+    gap: 15px;
+  }
+
+  .inscription-box,
+  .desinscription-box {
+    padding: 12px;
+  }
+
+  .btn-bottom {
+    bottom: 20px;
+    left: 20px;
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+}
