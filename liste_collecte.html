@@ -64,7 +64,7 @@
                                     const date = eventDetails.date_debut || eventDetails.date || "Date non spécifiée";
                                     const adresse = eventDetails.adresse || "";
                                     const participantsCount = eventDetails.participants ? Object.keys(eventDetails.participants).length : 0;
-                                    
+
                                     return `
                                     <li>
                                         <a href="info_collecte.html?collecte=${encodeURIComponent(eventName)}" class="collecte-card">
@@ -79,7 +79,7 @@
                                             </div>
                                             <div class="collecte-info-item">
                                                 <strong>📅 Date :</strong>
-                                                <span>${date}</span>
+                                                <span>${date_debut}</span>
                                             </div>
                                             ${participantsCount > 0 ? `
                                             <div class="collecte-info-item">
