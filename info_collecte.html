@@ -1,69 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Info collecte</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-        <link href="first.css" rel="stylesheet">
-        <link href="info_collecte.css" rel="stylesheet">
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <title>Info collecte</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="first.css" rel="stylesheet">
+    <link href="info_collecte.css" rel="stylesheet">
+    <script src="infos.js" defer></script>
+</head>
 
-    <body>
-        <header>
-            <h1><a href="index.html" style="color: inherit; text-decoration: none;">L2W ♻️</a></h1>
-            <nav>
-                <a href="index.html">Accueil</a>
-                <a href="form.html">Créer</a>
-                <a href="liste_collecte.html">Rejoindre</a>
-                <a href="#">Se connecter</a>
-            </nav>
-        </header>
+<body>
+    <header>
+        <h1><a href="index.html" style="color: inherit; text-decoration: none;">L2W ♻️</a></h1>
+        <nav>
+            <a href="index.html">Accueil</a>
+            <a href="form.html">Créer</a>
+            <a href="liste_collecte.html">Rejoindre</a>
+            <a href="#">Se connecter</a>
+        </nav>
+    </header>
 
-        <main class="page-container">
+    <main class="page-container">
 
-            <!-- Infos sur la collecte qui vont être affichées avec le JS -->
-            <section class="collecte-info">
+        <!-- Infos sur la collecte qui vont être affichées avec le JS -->
+        <section class="collecte-info">
 
-            </section>
+        </section>
 
-            <!-- Formulaire d'inscription -->
-            <section class="inscription-box">
-                <h3>Inscription</h3>
+        <!-- Formulaire d'inscription -->
+        <section class="inscription-box">
+            <h3>Inscription</h3>
 
-                <form id="registrationForm">
-                    <label for="firstName">Prénom</label>
-                    <input type="text" id="firstName" required>
+            <form id="registrationForm">
+                <label for="firstName">Prénom</label>
+                <input type="text" id="firstName" required>
 
-                    <label for="lastName">Nom</label>
-                    <input type="text" id="lastName" required>
+                <label for="lastName">Nom</label>
+                <input type="text" id="lastName" required>
 
-                    <label for="nombre">Nombre de participants</label>
-                    <input type="number" id="nombre" value="1" required>
+                <label for="nombre">Nombre de participants</label>
+                <input type="number" id="nombre" value="1" required>
 
-                    <button type="submit">S'inscrire</button>
-                </form>
-            </section>
+                <button type="submit">S'inscrire</button>
+            </form>
+        </section>
 
-            <!-- Formulaire de désinscription -->
-            <section class="desinscription-box">
-                <h3>Se désinscrire</h3>
+        <!-- Formulaire de désinscription -->
+        <section class="desinscription-box">
+            <h3>Se désinscrire</h3>
 
-                <form id="unregistrationForm">
-                    <label for="unregFirstName">Prénom</label>
-                    <input type="text" id="unregFirstName" required>
+            <form id="unregistrationForm">
+                <label for="unregFirstName">Prénom</label>
+                <input type="text" id="unregFirstName" required>
 
-                    <label for="unregLastName">Nom</label>
-                    <input type="text" id="unregLastName" required>
+                <label for="unregLastName">Nom</label>
+                <input type="text" id="unregLastName" required>
 
-                    <button type="submit">Se désinscrire</button>
-                </form>
-            </section>
+                <button type="submit">Se désinscrire</button>
+            </form>
+        </section>
 
-        </main>
-
-        <script src="infos.js"></script>
-
-
-    </body>
+    </main>
+</body>
 </html>
