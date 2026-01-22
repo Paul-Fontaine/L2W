@@ -7,13 +7,19 @@
             "option": "Covoiturage PMR possible",
             "theme": "Hallowen",
             "lieu": "Ville de Brest",
-            "date_debut": "31/10/2024",
+            "date_debut": "31/10/2025",
             "adresse": "Place de la Liberté, 29200 Brest",
             "description": "Ramassage à Brest. Covoiturage possible pour tous, n'hesitez pas à me contacter. Et surtout venez en costume",
             "participants": {
                 "Julie": "1",
                 "Gerard": "1",
                 "Christine": "12"
+            },
+            "resultat": {
+                "dechet_total_kg": 25,
+                "dechet_recycle_kg": 15,
+                "dechet_non_recycle_kg": 10,
+                "nombre_participants": 14
             }
 
         },
@@ -25,7 +31,7 @@
             "option": "",
             "theme": "",
             "lieu": "Phare du Minou",
-            "date_debut": "15/11/2024",
+            "date_debut": "15/11/2026",
             "adresse": "Plouzané, 29280",
             "description": "Ramassage au phare du minou, habillez vous chaudement",
             "participants": {

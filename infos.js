@@ -1,111 +1,146 @@
 document.addEventListener("DOMContentLoaded", () => {
+    const collecteInfoSection = document.querySelector(".collecte-info");
+    const inscriptionBox = document.querySelector(".inscription-box");
+    const desinscriptionBox = document.querySelector(".desinscription-box");
+    const registrationForm = document.getElementById("registrationForm");
+    const unregistrationForm = document.getElementById("unregistrationForm");
 
+    // Récupérer les paramètres de l'URL
     const params = new URLSearchParams(window.location.search);
     const collecteName = params.get("collecte");
 
-    const container = document.querySelector(".collecte-info");
-    const form = document.getElementById("registrationForm");
-
-    let data = null;
-
-    fetch("events.json")
-        .then(response => response.json())
-        .then(json => {
-            // Charger depuis localStorage si existe
-            data = JSON.parse(localStorage.getItem("eventsData")) || json;
-            console.log("Données chargées :", data);
-            if (!collecteName) {
-                container.innerHTML += "<p>Aucune collecte spécifiée.</p>";
-                return;
-            }
-
-            const collecte = data.events[collecteName];
-
-            console.log("Données de la collecte :", collecte);
-
-            if (!collecte) {
-                container.innerHTML += `<p>Collecte "${collecteName}" non trouvée.</p>`;
-                return;
-            }
-
-            // Affichage
-            container.innerHTML += `
-                <h2>${collecteName}</h2>
-                <p><strong>Organisateur :</strong> ${collecte.organisateur}</p>
-                <p><strong>Email :</strong> ${collecte.mail}</p>
-                <p><strong>Téléphone :</strong> ${collecte.telephone}</p>
-                <p><strong>Adresse de rencontre :</strong> ${collecte.adresse}</p>
-                <p><strong>Date :</strong> ${collecte.date_debut}</p>
-                <p><strong>Option :</strong> ${collecte.option || "Aucune"}</p>
-                <p><strong>Thème :</strong> ${collecte.theme || "Aucun"}</p>
-                <p><strong>Description :</strong> ${collecte.description}</p>
-                <h3>Participants :</h3>
-                <ul id="participantsList">
-                    ${Object.keys(collecte.participants).map(name => `<li>${name} (${collecte.participants[name]} personne${collecte.participants[name] > 1 ? 's' : ''})</li>`).join("")}
-                </ul>
-            `;
-        });
-
-    // Gestion du formulaire d'inscription
-    if (form) {
-        form.addEventListener("submit", function (e) {
-            e.preventDefault();
-
-            if (!data || !collecteName) return;
-
-            const firstName = document.getElementById("firstName").value.trim();
-            const lastName = document.getElementById("lastName").value.trim();
-            const nombre = document.getElementById("nombre").value.trim();
-
-            if (!firstName || !lastName) return;
-
-            const participantKey = `${firstName} ${lastName}`;
-
-            data.events[collecteName].participants[participantKey] = nombre;
-
-            localStorage.setItem("eventsData", JSON.stringify(data));
-
-            alert("Inscription enregistrée !");
-            location.reload();
-        });
+    if (!collecteName) {
+        collecteInfoSection.innerHTML = "<p>Aucune collecte spécifiée.</p>";
+        return;
     }
 
-    // Gestion du formulaire de désinscription
-    const unregForm = document.getElementById("unregistrationForm");
-    if (unregForm) {
-        unregForm.addEventListener("submit", function (e) {
-            e.preventDefault();
+    // Charger les données depuis le JSON ou localStorage
+    const storedData = localStorage.getItem("eventsData");
+    const dataPromise = storedData
+        ? Promise.resolve(JSON.parse(storedData))
+        : fetch("events.json").then((response) => response.json());
 
-            if (!data || !collecteName) return;
-
-            const firstName = document.getElementById("unregFirstName").value.trim();
-            const lastName = document.getElementById("unregLastName").value.trim();
-
-            if (!firstName || !lastName) {
-                alert("Veuillez remplir tous les champs.");
-                return;
-            }
-
-            const participantKey = `${firstName} ${lastName}`;
+    dataPromise
+        .then((data) => {
             const collecte = data.events[collecteName];
 
-            // Vérifier que le participant existe
-            if (!collecte.participants[participantKey]) {
-                alert("Vous n'êtes pas inscrit à cet événement.");
+            if (!collecte) {
+                collecteInfoSection.innerHTML = `<p>Collecte "${collecteName}" non trouvée.</p>`;
                 return;
             }
 
-            // Demander confirmation
-            if (confirm(`Êtes-vous sûr de vouloir vous désinscrire de "${collecteName}" ?`)) {
-                // Supprimer le participant
-                delete collecte.participants[participantKey];
+            afficherInfosCollecte(collecte, collecteName);
+            gererAffichageFormulaires(collecte);
 
-                // Sauvegarder dans localStorage
-                localStorage.setItem("eventsData", JSON.stringify(data));
-
-                alert("Désinscription réussie !");
-                location.reload();
+            // Gestion des formulaires
+            if (registrationForm) {
+                registrationForm.addEventListener("submit", (e) => inscrireParticipant(e, data, collecteName));
             }
+
+            if (unregistrationForm) {
+                unregistrationForm.addEventListener("submit", (e) => desinscrireParticipant(e, data, collecteName));
+            }
+        })
+        .catch((error) => {
+            console.error("Erreur lors du chargement des données :", error);
+            collecteInfoSection.innerHTML = "<p>Erreur lors du chargement des données.</p>";
         });
+
+    // Afficher les informations de la collecte
+    function afficherInfosCollecte(collecte, collecteName) {
+        collecteInfoSection.innerHTML = `
+            <h2>${collecteName}</h2>
+            <p><strong>Organisateur :</strong> ${collecte.organisateur}</p>
+            <p><strong>Email :</strong> ${collecte.mail}</p>
+            <p><strong>Téléphone :</strong> ${collecte.telephone}</p>
+            <p><strong>Adresse de rencontre :</strong> ${collecte.adresse}</p>
+            <p><strong>Date :</strong> ${collecte.date_debut}</p>
+            <p><strong>Option :</strong> ${collecte.option || "Aucune"}</p>
+            <p><strong>Thème :</strong> ${collecte.theme || "Aucun"}</p>
+            <p><strong>Description :</strong> ${collecte.description}</p>
+            <h3>Participants :</h3>
+            <ul id="participantsList">
+                ${Object.keys(collecte.participants).map(name => `<li>${name} (${collecte.participants[name]} personne${collecte.participants[name] > 1 ? 's' : ''})</li>`).join("")}
+            </ul>
+        `;
+    }
+
+    // Gérer l'affichage des formulaires en fonction de la date
+    function gererAffichageFormulaires(collecte) {
+        const collecteDate = new Date(collecte.date_debut.split("/").reverse().join("-"));
+        const currentDate = new Date();
+
+        if (currentDate > collecteDate) {
+            // Si la date est passée, afficher les résultats
+            inscriptionBox.style.display = "none";
+            desinscriptionBox.style.display = "none";
+
+            // Display the results
+            const results = collecte.resultat || {};
+            collecteInfoSection.innerHTML += `
+            <h3>Résultats de la collecte</h3>
+            <ul>
+                <li><strong>Déchets totaux collectés :</strong> ${results.dechet_total_kg || 0} kg</li>
+                <li><strong>Déchets recyclés :</strong> ${results.dechet_recycle_kg || 0} kg</li>
+                <li><strong>Déchets non recyclés :</strong> ${results.dechet_non_recycle_kg || 0} kg</li>
+                <li><strong>Nombre total de participants :</strong> ${results.nombre_participants || 0}</li>
+            </ul>
+        `;
+        } else {
+            // Si la date n'est pas passée, afficher les formulaires
+            inscriptionBox.style.display = "block";
+            desinscriptionBox.style.display = "block";
+        }
+    }
+
+    // Inscrire un participant
+    function inscrireParticipant(e, data, collecteName) {
+        e.preventDefault();
+
+        const firstName = document.getElementById("firstName").value.trim();
+        const lastName = document.getElementById("lastName").value.trim();
+        const nombre = document.getElementById("nombre").value.trim();
+
+        if (!firstName || !lastName) {
+            alert("Veuillez remplir tous les champs.");
+            return;
+        }
+
+        const participantKey = `${firstName} ${lastName}`;
+        data.events[collecteName].participants[participantKey] = nombre;
+
+        localStorage.setItem("eventsData", JSON.stringify(data));
+
+        alert("Inscription enregistrée !");
+        location.reload();
+    }
+
+    // Désinscrire un participant
+    function desinscrireParticipant(e, data, collecteName) {
+        e.preventDefault();
+
+        const firstName = document.getElementById("unregFirstName").value.trim();
+        const lastName = document.getElementById("unregLastName").value.trim();
+
+        if (!firstName || !lastName) {
+            alert("Veuillez remplir tous les champs.");
+            return;
+        }
+
+        const participantKey = `${firstName} ${lastName}`;
+        const collecte = data.events[collecteName];
+
+        if (!collecte.participants[participantKey]) {
+            alert("Vous n'êtes pas inscrit à cet événement.");
+            return;
+        }
+
+        if (confirm(`Êtes-vous sûr de vouloir vous désinscrire de "${collecteName}" ?`)) {
+            delete collecte.participants[participantKey];
+            localStorage.setItem("eventsData", JSON.stringify(data));
+
+            alert("Désinscription réussie !");
+            location.reload();
+        }
     }
 });
