@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>L2W - ZERO DÉCHETS EN RADE</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link href="connexion.css" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <h1><a href="index.html" style="color: inherit; text-decoration: none;">L2W</a></h1>
+    <nav>
+      <a href="index.html">Accueil</a>
+      <a href="form.html">Créer</a>
+      <a href="liste_collecte.html">Rejoindre</a>
+      <a href="connexion.html">Se connecter</a>
+    </nav>
+  </header>
+
+  <!-- Conteneur centré pour les formulaires -->
+  <div class="form-container">
+    <div class="forms-wrapper">
+      
+      <!-- Formulaire d'inscription -->
+      <form class="form" id="signupForm">
+        <p class="title">Inscription</p>
+        <p class="message">Inscrivez-vous maintenant et accédez à toutes les fonctionnalités de notre application.</p>
+        <div class="flex">
+          <label>
+            <input class="input" type="text" placeholder="" required="">
+            <span>Prénom</span>
+          </label>
+
+          <label>
+            <input class="input" type="text" placeholder="" required="">
+            <span>Nom</span>
+          </label>
+        </div>  
+                
+        <label>
+          <input class="input" type="email" placeholder="" required="">
+          <span>Email</span>
+        </label>
+            
+        <button class="submit" type="submit">S'inscrire</button>
+        <p class="signin">Vous avez déjà un compte ? <a id="showSignin">Se connecter</a></p>
+      </form>
+
+      <!-- Formulaire de connexion -->
+      <form class="form hidden" id="signinForm">
+        <p class="title">Connexion</p>
+        <p class="message">Connectez-vous pour accéder à votre compte.</p>
+        <label>
+          <input class="input" type="email" placeholder="" required="">
+          <span>Email</span>
+        </label>
+            
+        <button class="submit" type="submit">Se connecter</button>
+        <p class="signin">Pas encore de compte ? <a id="showSignup">S'inscrire</a></p>
+      </form>
+
+    </div>
+  </div>
+
+  <script>
+    // Basculer entre les formulaires
+    const signupForm = document.getElementById('signupForm');
+    const signinForm = document.getElementById('signinForm');
+    const showSignin = document.getElementById('showSignin');
+    const showSignup = document.getElementById('showSignup');
+
+    showSignin.addEventListener('click', (e) => {
+      e.preventDefault();
+      signupForm.classList.add('hidden');
+      signinForm.classList.remove('hidden');
+    });
+
+    showSignup.addEventListener('click', (e) => {
+      e.preventDefault();
+      signinForm.classList.add('hidden');
+      signupForm.classList.remove('hidden');
+    });
+  </script>
+
+</body>
+</html>

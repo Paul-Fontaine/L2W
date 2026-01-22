@@ -1,0 +1,214 @@
+
+/* ============================================
+    RESET & VARIABLES GLOBALES
+    ============================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.3s ease;
+}
+
+body {
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: linear-gradient(rgba(46, 125, 50, 0.5), rgba(27, 94, 32, 0.6));
+}
+
+/* ============================================
+    HEADER & NAVIGATION
+    ============================================ */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 50px;
+    background: #2e7d32;
+    color: #fff;
+}
+
+header h1 {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+nav a {
+    margin: 0 15px;
+    text-decoration: none;
+    color: #fff;
+    font-weight: 600;
+}
+
+nav a:hover {
+    color: #c8e6c9;
+}
+
+/* ============================================
+    CONTENEUR CENTRÉ POUR LES FORMULAIRES
+    ============================================ */
+.form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 70px);
+    padding: 40px 20px;
+}
+
+.forms-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    align-items: center;
+    width: 100%;
+    max-width: 400px;
+}
+
+/* ============================================
+    Connexion et inscription
+    ammarsaa
+    Syed Ammar Ahmed
+    ============================================ */
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    max-width: 350px;
+    padding: 20px;
+    border-radius: 20px;
+    position: relative;
+    background-color: white;
+    color: #fff;
+    border: 1px solid white;
+}
+
+.title {
+    font-size: 28px;
+    font-weight: 600;
+    letter-spacing: -1px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding-left: 30px;
+    color: #2e7d32;
+}
+
+.title::before {
+    width: 18px;
+    height: 18px;
+}
+
+.title::after {
+    width: 18px;
+    height: 18px;
+    animation: pulse 1s linear infinite;
+}
+
+.title::before,
+.title::after {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    left: 0px;
+    background-color: #2e7d32;
+}
+
+.message, 
+.signin {
+    font-size: 14.5px;
+    color: black;
+}
+
+.signin {
+    text-align: center;
+}
+
+.signin a:hover {
+    text-decoration: underline #2e7d32;
+}
+
+.signin a {
+    color: #2e7d32;
+    cursor: pointer;
+}
+
+.flex {
+    display: flex;
+    width: 100%;
+    gap: 6px;
+}
+
+.form label {
+    position: relative;
+}
+
+.form label .input {
+    background-color: white;
+    color: #fff;
+    width: 100%;
+    padding: 20px 05px 05px 10px;
+    outline: 0;
+    border: 1px solid rgba(105, 105, 105, 0.397);
+    border-radius: 10px;
+}
+
+.form label .input + span {
+    color: black;
+    position: absolute;
+    left: 10px;
+    top: 0px;
+    font-size: 0.9em;
+    cursor: text;
+    transition: 0.3s ease;
+}
+
+.form label .input:placeholder-shown + span {
+    top: 12.5px;
+    font-size: 0.9em;
+}
+
+.form label .input:focus + span,
+.form label .input:valid + span {
+    color: #2e7d32;
+    top: 0px;
+    font-size: 0.7em;
+    font-weight: 600;
+}
+
+.input {
+    font-size: medium;
+}
+
+.submit {
+    border: none;
+    outline: none;
+    padding: 10px;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 16px;
+    transform: .3s ease;
+    background-color: #2e7d32;
+    cursor: pointer;
+}
+
+.submit:hover {
+    background-color: rgba(27,94,32,0.6);
+}
+
+.hidden {
+    display: none;
+}
+
+@keyframes pulse {
+    from {
+    transform: scale(0.9);
+    opacity: 1;
+    }
+
+    to {
+    transform: scale(1.8);
+    opacity: 0;
+    }
+}
