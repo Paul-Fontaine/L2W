@@ -60,7 +60,12 @@ document.addEventListener("DOMContentLoaded", () => {
             <p><strong>Description :</strong> ${collecte.description}</p>
             <h3>Participants :</h3>
             <ul id="participantsList">
-                ${Object.keys(collecte.participants).map(name => `<li>${name} (${collecte.participants[name]} personne${collecte.participants[name] > 1 ? 's' : ''})</li>`).join("")}
+                ${Object.entries(collecte.participants).map(([name, details]) => `
+                    <li>
+                        ${name} (${details.nombre} personne${details.nombre > 1 ? 's' : ''})
+                        ${details.telephone ? `- Téléphone : ${details.telephone}` : ''}
+                    </li>
+                `).join("")}
             </ul>
         `;
     }
@@ -100,6 +105,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const firstName = document.getElementById("firstName").value.trim();
         const lastName = document.getElementById("lastName").value.trim();
         const nombre = document.getElementById("nombre").value.trim();
+        const telephone = document.getElementById("telephone").value.trim();
 
         if (!firstName || !lastName) {
             alert("Veuillez remplir tous les champs.");
@@ -107,7 +113,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         const participantKey = `${firstName} ${lastName}`;
-        data.events[collecteName].participants[participantKey] = nombre;
+        data.events[collecteName].participants[participantKey].nombre = nombre;
+        data.events[collecteName].participants[participantKey].telephone = telephone;
 
         localStorage.setItem("eventsData", JSON.stringify(data));
 
