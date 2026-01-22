@@ -19,9 +19,26 @@
             </nav>
         </header>
 
-        <!-- Affichage des informations d'une collecte qui sont dans le JSON -->
+        <main>
+            <button id="showPopupButton" class="btn-bottom">Inscrivez-vous</button>
+
+            <form id="registrationForm">
+                <h3>Inscription à l'événement</h3>
+                <label for="firstName">Prénom :</label>
+                <input type="text" id="firstName" name="firstName" required>
+                <label for="lastName">Nom :</label>
+                <input type="text" id="lastName" name="lastName" required>
+                <button type="submit">S'inscrire</button>
+            </form>
+        </main>
 
         <script src="infos.js"></script>
+        <script>
+            document.getElementById("showFormButton").addEventListener("click", () => {
+                const form = document.getElementById("registrationForm");
+                form.style.display = form.style.display === "none" ? "block" : "none";
+            });
+        </script>
 
 
 
