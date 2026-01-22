@@ -29,20 +29,27 @@
             document.addEventListener("DOMContentLoaded", () => {
                 const container = document.getElementById("collectesContent");
 
-                // Charger depuis localStorage si existe, sinon depuis le fichier JSON
-                const storedData = localStorage.getItem("eventsData");
-                let dataPromise;
+                // Charger events.json et fusionner avec localStorage
+                fetch("events.json")
+                    .then(response => response.json())
+                    .then(jsonData => {
+                        // Charger localStorage s'il existe
+                        let mergedData = { events: { ...jsonData.events } };
+                        
+                        try {
+                            const storedData = localStorage.getItem("eventsData");
+                            if (storedData) {
+                                const parsedStored = JSON.parse(storedData);
+                                if (parsedStored && parsedStored.events) {
+                                    // Fusionner : events.json en base, localStorage en complément
+                                    mergedData.events = { ...jsonData.events, ...parsedStored.events };
+                                }
+                            }
+                        } catch (e) {
+                            console.warn("Erreur lors du chargement de localStorage, utilisation de events.json uniquement", e);
+                        }
 
-                if (storedData) {
-                    dataPromise = Promise.resolve(JSON.parse(storedData));
-                } else {
-                    dataPromise = fetch("events.json")
-                        .then(response => response.json());
-                }
-
-                dataPromise
-                    .then(data => {
-                        const events = data.events || {};
+                        const events = mergedData.events || {};
 
                         if (Object.keys(events).length === 0) {
                             container.innerHTML = `

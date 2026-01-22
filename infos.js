@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(json => {
             // Charger depuis localStorage si existe
             data = JSON.parse(localStorage.getItem("eventsData")) || json;
-
+            console.log("Données chargées :", data);
             if (!collecteName) {
                 container.innerHTML += "<p>Aucune collecte spécifiée.</p>";
                 return;

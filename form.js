@@ -6,13 +6,43 @@ function saveData(data) {
 
 function getData() {
     const data = localStorage.getItem(dbName);
-    return data ? JSON.parse(data) : []; // Return empty array if no data exists
+    return data ? JSON.parse(data) : null;
 }
 
-function addEvent(event) {
-    const events = getData();
-    events.push(event);
-    saveData(events);
+// Charger les données de base depuis events.json et fusionner avec localStorage
+async function loadAndMergeData() {
+    try {
+        // Charger events.json
+        const response = await fetch("events.json");
+        const jsonData = await response.json();
+        
+        // Charger localStorage s'il existe
+        const storedData = getData();
+        
+        // Fusionner les données
+        let mergedData = { events: { ...jsonData.events } };
+        
+        if (storedData && storedData.events) {
+            // Fusionner les événements du localStorage avec ceux de events.json
+            mergedData.events = { ...jsonData.events, ...storedData.events };
+        }
+        
+        return mergedData;
+    } catch (error) {
+        console.error("Erreur lors du chargement des données:", error);
+        // En cas d'erreur, utiliser localStorage ou structure vide
+        const storedData = getData();
+        return storedData || { events: {} };
+    }
+}
+
+function addEvent(eventName, eventData) {
+    loadAndMergeData().then(mergedData => {
+        // Ajouter le nouvel événement
+        mergedData.events[eventName] = eventData;
+        // Sauvegarder dans localStorage
+        saveData(mergedData);
+    });
 }
 
 const form = document.getElementById('propositionForm');
@@ -36,11 +66,11 @@ form.addEventListener('submit', function(e) {
         return;
     }
     
-    new_event = {
+    const new_event = {
         "organisateur": organisateur,
         "mail" : mail,
         "telephone" : telephone,
-        "option": adaptePMR,
+        "option": adaptePMR ? "Adapté aux PMR" : "",
         "lieu": lieu,
         "date_debut": date,
         "theme": "",
@@ -49,23 +79,31 @@ form.addEventListener('submit', function(e) {
         "participants": {}
     };
     
-    addEvent(new_event);
-    
-    console.log(`Événement "${eventTitle}" ajouté avec succès !`);
-    console.log(new_event);
-    
-    // Afficher le message de succès
-    successMessage.style.display = 'block';
-    
-    // Réinitialiser le formulaire
-    form.reset();
-    
-    // Cacher le message et rediriger après 2 secondes
-    setTimeout(function() {
-        successMessage.style.display = 'none';
-        window.location.href = 'liste_collecte.html';
-    }, 2000);
-    
-    successMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    // Ajouter l'événement en fusionnant avec les données existantes
+    loadAndMergeData().then(mergedData => {
+        // Ajouter le nouvel événement
+        mergedData.events[eventTitle] = new_event;
+        // Sauvegarder dans localStorage
+        saveData(mergedData);
         
+        console.log(`Événement "${eventTitle}" ajouté avec succès !`);
+        console.log(new_event);
+        
+        // Afficher le message de succès
+        successMessage.style.display = 'block';
+        
+        // Réinitialiser le formulaire
+        form.reset();
+        
+        // Cacher le message et rediriger après 2 secondes
+        setTimeout(function() {
+            successMessage.style.display = 'none';
+            window.location.href = 'liste_collecte.html';
+        }, 2000);
+        
+        successMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+    
+    return; // Empêcher l'exécution du code suivant
+    
 });
