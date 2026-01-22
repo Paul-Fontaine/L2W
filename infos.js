@@ -37,12 +37,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 <p><strong>Description :</strong> ${collecte.description}</p>
                 <h3>Participants :</h3>
                 <ul id="participantsList">
-                    ${Object.keys(collecte.participants).map(name => `<li>${name}</li>`).join("")}
+                    ${Object.keys(collecte.participants).map(name => `<li>${name} (${collecte.participants[name]} personne${collecte.participants[name] > 1 ? 's' : ''})</li>`).join("")}
                 </ul>
             `;
         });
 
-    // Gestion du formulaire
+    // Gestion du formulaire d'inscription
     if (form) {
         form.addEventListener("submit", function (e) {
             e.preventDefault();
@@ -63,6 +63,45 @@ document.addEventListener("DOMContentLoaded", () => {
 
             alert("Inscription enregistrée !");
             location.reload();
+        });
+    }
+
+    // Gestion du formulaire de désinscription
+    const unregForm = document.getElementById("unregistrationForm");
+    if (unregForm) {
+        unregForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            if (!data || !collecteName) return;
+
+            const firstName = document.getElementById("unregFirstName").value.trim();
+            const lastName = document.getElementById("unregLastName").value.trim();
+
+            if (!firstName || !lastName) {
+                alert("Veuillez remplir tous les champs.");
+                return;
+            }
+
+            const participantKey = `${firstName} ${lastName}`;
+            const collecte = data.events[collecteName];
+
+            // Vérifier que le participant existe
+            if (!collecte.participants[participantKey]) {
+                alert("Vous n'êtes pas inscrit à cet événement.");
+                return;
+            }
+
+            // Demander confirmation
+            if (confirm(`Êtes-vous sûr de vouloir vous désinscrire de "${collecteName}" ?`)) {
+                // Supprimer le participant
+                delete collecte.participants[participantKey];
+
+                // Sauvegarder dans localStorage
+                localStorage.setItem("eventsData", JSON.stringify(data));
+
+                alert("Désinscription réussie !");
+                location.reload();
+            }
         });
     }
 });

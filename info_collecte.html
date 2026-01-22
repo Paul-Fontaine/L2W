@@ -6,11 +6,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
         <link href="first.css" rel="stylesheet">
+        <link href="info_collecte.css" rel="stylesheet">
     </head>
 
     <body>
         <header>
-            <h1>L2W ♻️</h1>
+            <h1><a href="index.html" style="color: inherit; text-decoration: none;">L2W ♻️</a></h1>
             <nav>
                 <a href="index.html">Accueil</a>
                 <a href="form.html">Créer</a>
@@ -41,6 +42,21 @@
                     <input type="number" id="nombre" value="1" required>
 
                     <button type="submit">S'inscrire</button>
+                </form>
+            </section>
+
+            <!-- Formulaire de désinscription -->
+            <section class="desinscription-box">
+                <h3>Se désinscrire</h3>
+
+                <form id="unregistrationForm">
+                    <label for="unregFirstName">Prénom</label>
+                    <input type="text" id="unregFirstName" required>
+
+                    <label for="unregLastName">Nom</label>
+                    <input type="text" id="unregLastName" required>
+
+                    <button type="submit">Se désinscrire</button>
                 </form>
             </section>
 
