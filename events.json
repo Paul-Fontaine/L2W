@@ -11,9 +11,18 @@
             "adresse": "Place de la Liberté, 29200 Brest",
             "description": "Ramassage à Brest. Covoiturage possible pour tous, n'hesitez pas à me contacter. Et surtout venez en costume",
             "participants": {
-                "Julie": "1",
-                "Gerard": "1",
-                "Christine": "12"
+                "Julie": {
+                    "nombre": "1",
+                    "telephone": "0636788273"
+                },
+                "Gerard": {
+                    "nombre": "1",
+                    "telephone": ""
+                },
+                "Christine": {
+                    "nombre": "12",
+                    "telephone": "0623456789"
+                }
             },
             "resultat": {
                 "dechet_total_kg": 25,
