@@ -3,56 +3,69 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EcoSnap - Track Plastic Impact</title>
+  <title>L2W - ZERO DÉCHETS EN RADE</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <link href="first.css" rel="stylesheet">
-  <script src="go.js"></script>
 </head>
 <body>
+
+  <!-- Header -->
   <header>
-    <h1>EcoSnap 🌱</h1>
-    <nav>
-      <a href="#">Home</a>
-      <a href="#">Features</a>
-      <a href="#">Impact</a>
-      <a href="#">Leaderboard</a>
-    </nav>
-    <button class="toggle-btn" onclick="toggleDarkMode()">Dark Mode</button>
-  </header>
+            <h1>L2W</h1>
+            <nav>
+                <a href="index.html">Accueil</a>
+                <a href="form.html">Créer</a>
+                <a href="liste_collecte.html">Rejoindre</a>
+                <a href="#">Se connecter</a>
+            </nav>
+        </header>
 
   <!-- Hero -->
   <section class="hero" data-aos="fade-up">
     <div>
-      <h2>Track Plastic Packaging Impact</h2>
-      <p>Scan barcodes, track your eco-score, and join the movement for a greener planet.</p>
-      <button class="btn">Get Started</button>
+      <h2>ZERO DÉCHETS EN RADE</h2>
+      <p>Rejoignez la communauté de bénévoles engagés pour protéger le littoral de la rade de Brest. Organisez et participez aux actions de ramassage des déchets.</p>
+      <a class="btn" href="#actions">Découvrir la communauté</a>
     </div>
   </section>
 
   <!-- Stats -->
   <section class="stats">
     <div class="stat-box" data-aos="zoom-in">
-      <h3 id="plastic">0</h3>
-      <p>Plastic Saved (kg)</p>
+      <h3 id="kg-dechets">0</h3>
+      <p>Kg de déchets ramassés</p>
     </div>
     <div class="stat-box" data-aos="zoom-in">
-      <h3 id="trees">0</h3>
-      <p>Trees Planted</p>
+      <h3 id="nb-inscrits">0</h3>
+      <p>Nombre de bénévoles inscrits</p>
     </div>
     <div class="stat-box" data-aos="zoom-in">
-      <h3 id="coins">0</h3>
-      <p>Coins Earned</p>
+      <h3 id="nb-events">0</h3>
+      <p>Évènements organisés</p>
     </div>
   </section>
 
-  <!-- Features -->
-  <section class="features">
-    <h2>Features</h2>
-    <div class="feature-grid">
-      <div class="feature-item" data-aos="flip-left">🌍 Global Eco Ranking</div>
-      <div class="feature-item" data-aos="flip-left">📦 Track Packaging Impact</div>
-      <div class="feature-item" data-aos="flip-left">🤝 User + Manufacturer Collaboration</div>
-      <div class="feature-item" data-aos="flip-left">💡 Suggest Eco Alternatives</div>
+  <!-- Actions -->
+  <section class="actions" id="actions">
+    <h2>Agir maintenant</h2>
+    <div class="action-grid">
+      <div class="action-card">
+        <h3>Créer un évènement</h3>
+        <p>
+          Propose une collecte (lieu, date, heure) pour mobiliser des bénévoles sur le littoral
+          de la rade de Brest.
+        </p>
+        <a class="btn" href="form.html">Créer un évènement</a>
+      </div>
+
+      <div class="action-card">
+        <h3>Rejoindre un évènement</h3>
+        <p>
+          Découvre les collectes près de chez toi et inscris-toi pour participer à une action
+          de ramassage.
+        </p>
+        <a class="btn" href="liste_collecte.html">Rejoindre un évènement</a>
+      </div>
     </div>
   </section>
 
@@ -61,7 +74,38 @@
     <p>© 2026 L2W. All Rights Reserved.</p>
   </footer>
 
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="first.css">
+
+  <!-- Script permettant au bouton "découvrir la communautée" de défiler plus lentement-->
+  <script>
+    // Scroll plus lent vers les ancres (ex: bouton "Découvrir la communauté")
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', function(e) {
+        const targetId = this.getAttribute('href');
+        const targetEl = document.querySelector(targetId);
+        if (!targetEl) return;
+        e.preventDefault();
+        const duration = 900; // durée en ms (plus grand = plus lent)
+        const start = window.pageYOffset;
+        const end = targetEl.getBoundingClientRect().top + window.pageYOffset;
+        const distance = end - start;
+        let startTime = null;
+
+        const easeInOutQuad = (t) => t < 0.5 ? 2*t*t : -1 + (4 - 2*t)*t;
+
+        const animate = (currentTime) => {
+          if (!startTime) startTime = currentTime;
+          const timeElapsed = currentTime - startTime;
+          const progress = Math.min(timeElapsed / duration, 1);
+          const ease = easeInOutQuad(progress);
+          window.scrollTo(0, start + distance * ease);
+          if (timeElapsed < duration) requestAnimationFrame(animate);
+        };
+
+        requestAnimationFrame(animate);
+      });
+    });
+  </script>
 </body>
 </html>
  
