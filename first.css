@@ -136,34 +136,50 @@ nav a:hover {
 }
 
 /* ============================================
-   FEATURES SECTION
+   ACTIONS (Créer / Rejoindre)
    ============================================ */
-.features {
-  padding: 50px;
+.actions {
+  padding: 50px 20px;
   background: #e8f5e9;
   text-align: center;
 }
 
-.features h2 {
+.actions h2 {
   margin-bottom: 30px;
   font-size: 28px;
 }
 
-.feature-grid {
+.action-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(2, minmax(260px, 1fr));
   gap: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
-.feature-item {
+.action-card {
   background: white;
-  padding: 20px;
+  padding: 25px;
   border-radius: 15px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  text-align: left;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
-.feature-item:hover {
-  transform: scale(1.05);
+.action-card h3 {
+  color: #2e7d32;
+  margin-bottom: 10px;
+  font-size: 20px;
+}
+
+.action-card p {
+  margin-bottom: 15px;
+  line-height: 1.5;
+}
+
+.action-card .btn {
+  display: inline-block;
+  margin-top: 0;
+  text-decoration: none;
 }
 
 /* ============================================
@@ -253,16 +269,16 @@ footer {
   }
   
   /* Features */
-  .features {
+  .actions {
     padding: 30px 20px;
   }
-  
-  .features h2 {
+
+  .actions h2 {
     font-size: 24px;
     margin-bottom: 20px;
   }
-  
-  .feature-grid {
+
+  .action-grid {
     grid-template-columns: 1fr;
     gap: 15px;
   }
