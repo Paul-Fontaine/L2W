@@ -61,7 +61,7 @@
                                 ${Object.entries(events).map(([eventName, eventDetails]) => {
                                     const lieu = eventDetails.lieu || "Lieu non spécifié";
                                     const organisateur = eventDetails.organisateur || "Organisateur non spécifié";
-                                    const date = eventDetails.date_debut || eventDetails.date || "Date non spécifiée";
+                                    const date = eventDetails.date_debut || "Date non spécifiée";
                                     const adresse = eventDetails.adresse || "";
                                     const participantsCount = eventDetails.participants ? Object.keys(eventDetails.participants).length : 0;
 
@@ -79,7 +79,7 @@
                                             </div>
                                             <div class="collecte-info-item">
                                                 <strong>📅 Date :</strong>
-                                                <span>${date_debut}</span>
+                                                <span>${date}</span>
                                             </div>
                                             ${participantsCount > 0 ? `
                                             <div class="collecte-info-item">
