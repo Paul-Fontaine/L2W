@@ -240,6 +240,96 @@
       `);
     });
   </script>
+
+  <!-- Script pour les statistiques -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Charger les données : fusionner events.json avec localStorage
+      fetch("events.json")
+        .then(response => response.json())
+        .then(jsonData => {
+          // Charger localStorage s'il existe
+          let mergedData = { events: { ...jsonData.events } };
+          
+          try {
+            const storedData = localStorage.getItem("eventsData");
+            if (storedData) {
+              const parsedStored = JSON.parse(storedData);
+              if (parsedStored && parsedStored.events) {
+                // Fusionner : events.json en base, localStorage en complément
+                mergedData.events = { ...jsonData.events, ...parsedStored.events };
+              }
+            }
+          } catch (e) {
+            console.warn("Erreur lors du chargement de localStorage, utilisation de events.json uniquement", e);
+          }
+
+          const events = mergedData.events || {};
+
+          // Calculer les statistiques
+          let totalDechets = 0;
+          let totalBenevoles = 0;
+          let nombreEvents = Object.keys(events).length;
+
+          // Parcourir tous les événements
+          Object.values(events).forEach(event => {
+            // Calculer le total de déchets (depuis les résultats)
+            if (event.resultat && event.resultat.dechet_total_kg) {
+              totalDechets += parseFloat(event.resultat.dechet_total_kg) || 0;
+            }
+
+            // Calculer le nombre total de bénévoles inscrits
+            if (event.participants) {
+              Object.values(event.participants).forEach(participant => {
+                // Gérer les deux formats : objet {nombre} ou string
+                let nombre;
+                if (typeof participant === 'object' && participant !== null) {
+                  nombre = parseInt(participant.nombre || participant.nombre_participants || "0", 10);
+                } else {
+                  nombre = parseInt(participant || "0", 10);
+                }
+                totalBenevoles += isNaN(nombre) ? 0 : nombre;
+              });
+            }
+          });
+
+          // Fonction pour animer le comptage
+          function animateValue(elementId, start, end, duration) {
+            const element = document.getElementById(elementId);
+            if (!element) return;
+
+            const range = end - start;
+            const increment = end > start ? 1 : -1;
+            const stepTime = Math.abs(Math.floor(duration / range));
+            let current = start;
+            const timer = setInterval(() => {
+              current += increment;
+              if ((increment > 0 && current >= end) || (increment < 0 && current <= end)) {
+                current = end;
+                clearInterval(timer);
+              }
+              
+              // Formater les nombres
+              if (elementId === 'kg-dechets') {
+                element.textContent = Math.round(current);
+              } else {
+                element.textContent = Math.round(current);
+              }
+            }, stepTime);
+          }
+
+          // Animer les statistiques
+          setTimeout(() => {
+            animateValue('kg-dechets', 0, totalDechets, 2000);
+            animateValue('nb-inscrits', 0, totalBenevoles, 2000);
+            animateValue('nb-events', 0, nombreEvents, 1500);
+          }, 500);
+        })
+        .catch(error => {
+          console.error("Erreur lors du chargement des statistiques:", error);
+        });
+    });
+  </script>
 </body>
 </html>
  
